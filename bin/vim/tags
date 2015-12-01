@@ -1,0 +1,2 @@
+#!/bin/bash
+ctags -a -f /tmp/.tags -R $1

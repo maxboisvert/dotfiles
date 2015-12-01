@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Lazy commit
+
+git add -A
+git commit

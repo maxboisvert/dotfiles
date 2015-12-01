@@ -1,0 +1,5 @@
+#!/bin/bash
+
+CURRENT=`pwd`
+
+sudo mount -t tmpfs -o size=512M tmpfs $CURRENT

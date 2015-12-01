@@ -1,0 +1,3 @@
+#!/bin/bash
+rsync -aP $1 $2
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Start the python http server
+
+python -m SimpleHTTPServer

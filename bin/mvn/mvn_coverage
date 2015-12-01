@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Display current project coverage in Chrome
+
+set e
+
+mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test
+mvn org.jacoco:jacoco-maven-plugin:report
+
+google-chrome
+google-chrome $(find -name index.html | grep jacoco/index.html)
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Compress a pdf file
+
+gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=compressed $ARG

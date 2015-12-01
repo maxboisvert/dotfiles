@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Auto copile sass
+
+sass --watch .:$1 --precision 10 --style expanded

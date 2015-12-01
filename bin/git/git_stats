@@ -1,0 +1,16 @@
+#!/bin/bash
+
+STATS_FILE=/tmp/bm_stats
+
+function rm_stats() {
+	rm -f $STATS_FILE
+}
+
+rm_stats
+
+find . -type f | grep -v target | egrep "$1" | xargs -i git blame --line-porcelain {} | grep "^author " > $STATS_FILE
+
+sort $STATS_FILE | uniq -c | sort -nr
+
+rm_stats
+

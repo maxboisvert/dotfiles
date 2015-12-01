@@ -1,0 +1,2 @@
+#!/bin/bash
+ps -e -o pid,command | grep jetty | awk '{print $1}' | xargs kill -9

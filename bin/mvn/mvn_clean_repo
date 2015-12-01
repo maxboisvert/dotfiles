@@ -1,0 +1,2 @@
+#!/bin/bash
+find $M2_REPO -type d -name *SNAPSHOT* | xargs rm -rfv
