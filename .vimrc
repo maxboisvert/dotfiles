@@ -15,6 +15,12 @@ set autoread
 set autowriteall
 set encoding=utf-8
 
+" File explorer style
+let g:netrw_browse_split=4 
+let g:netrw_winsize = 80
+let g:netrw_liststyle=3 
+let g:netrw_altv = 1
+
 " ui
 set background=dark " light
 set noeb vb t_vb=
