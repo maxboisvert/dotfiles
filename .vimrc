@@ -28,7 +28,7 @@ set noeb vb t_vb=
 set guioptions=c
 set history=1000 
 set lazyredraw
-set mouse=
+set mouse=a
 
 " status
 set ruler 
