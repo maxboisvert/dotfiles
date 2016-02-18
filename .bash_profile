@@ -45,3 +45,9 @@ prependToPath /backedUpFiles/workspace/git-lexflow/git-lexflow-core/src/main/bas
 prependToPath /backedUpFiles/workspace/mb-release/
 prependToPath $(find -L ~/bin -type d -printf ":%p")
 
+# https://github.com/junegunn/fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
+alias fim='vim $(ag -g "" | fzf)'
+

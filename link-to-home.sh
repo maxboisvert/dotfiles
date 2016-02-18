@@ -1,7 +1,7 @@
 
 # Use at your own risk. This will override your home with the stuff in this folder.
 
-set -ex
+set -e
 
 for file in $(find $(pwd) -maxdepth 1)
 do

@@ -1,67 +1,68 @@
-
 " minimal
 syntax on
 filetype plugin indent on
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 set backspace=2
-set hidden
+
+" indent
+au filetype ruby setl shiftwidth=2 tabstop=2 softtabstop=2
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 set autoindent
 
-" filetypes
-au filetype ruby setl shiftwidth=2 tabstop=2 softtabstop=2
-
-" file
+" misc
 set autoread 
-set autowriteall
 set encoding=utf-8
-
-" File explorer style
-let g:netrw_browse_split=4 
-let g:netrw_winsize = 20
-let g:netrw_liststyle=3 
-let g:netrw_banner = 0
-let g:netrw_altv = 1
-
-" ui
-set background=dark " light
-set noeb vb t_vb=
-set guioptions=c
+set hidden
 set history=1000 
-set lazyredraw
-set mouse=a
-
-" status
-set ruler 
-set showmode
-
-" wrapping
-set linebreak
 set nowrap 
 
 " search
-set nohlsearch
+set ignorecase
 set incsearch
+set smartcase
 
-" undo
-set undolevels=1000 
-set undofile 
-set undodir=/tmp
+" ui
+set background=dark
+set completeopt=
+set lazyredraw
+set ttyfast
+set visualbell t_vb=
 
 " backup
 set nobackup 
-set nowritebackup 
 set noswapfile
-
-" Tags
-set tags=/tmp/vim/.tags
-command Tags execute ':!ctags -a -f /tmp/vim/.tags -R'
+set nowritebackup 
 
 " Cool stuff
 au BufEnter * normal! g`"
+inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
 inoremap {<CR> {<CR>}<Esc>O
 
-" complete
-inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
-set complete=.,w,b,u,t,i
-set completeopt=
+" fzf
+map <C-T> :FZF<CR>
+set rtp+=~/.fzf
+
+" disabled
+
+" Vexplore
+" let g:netrw_browse_split=4 
+" let g:netrw_winsize = 20
+" let g:netrw_liststyle=3 
+" let g:netrw_banner = 0
+" let g:netrw_altv = 1
+
+" set complete=.,w,b,u,t,i
+" set mouse=
+" set guioptions=c
+" set autowriteall
+" set ruler 
+" set showmode
+" set linebreak
+" set nohlsearch
+
+" set undolevels=1000 
+" set undodir=/tmp
+" set undofile 
+
+" set tags=/tmp/vim/.tags
+" command Tags execute ':!ctags -a -f /tmp/vim/.tags -R'
 
