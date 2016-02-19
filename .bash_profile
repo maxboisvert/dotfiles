@@ -51,3 +51,5 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 alias fim='vim $(ag -g "" | fzf)'
 
+bind 'set bell-style none'
+
