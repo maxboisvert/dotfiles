@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -ex
+
+mvn clean package org.apache.tomcat.maven:tomcat7-maven-plugin:2.1:exec-war-only $@

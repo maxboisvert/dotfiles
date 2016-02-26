@@ -9,21 +9,29 @@ set autoindent
 
 " misc
 set autoread 
+set autowrite
+set autowriteall
 set backspace=2
 set encoding=utf-8
 set hidden
 set history=1000 
+set linebreak
 set nowrap 
 
 " search
 set ignorecase
 set incsearch
+set nohlsearch
 set smartcase
 
 " ui
 set background=dark
 set completeopt=
+set guioptions=c
 set lazyredraw
+set mouse=
+set ruler 
+set showmode
 set ttyfast
 set visualbell t_vb=
 
@@ -38,18 +46,26 @@ set undofile
 set undolevels=1000 
 
 " autocmd
-autocmd BufEnter * normal! g`"
+" autocmd BufEnter * normal! g`"
 autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype ruby setl shiftwidth=2 tabstop=2 softtabstop=2
 
 " map
+let mapleader = '\'
 inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
+nnoremap <Leader>b :ls<CR>:b<Space>
 inoremap {<CR> {<CR>}<Esc>O
 
 " fzf
 map <C-T> :FZF<CR>
 set rtp+=~/.fzf
 
+" Session
+set ssop=buffers
+if(argc() == 0)
+    autocmd VimEnter * nested :source ~/.session.vim
+endif
+autocmd VimLeave * :mksession! ~/.session.vim
 
 " disabled
 
@@ -61,13 +77,6 @@ set rtp+=~/.fzf
 " let g:netrw_altv = 1
 
 " set complete=.,w,b,u,t,i
-" set mouse=
-" set guioptions=c
-" set autowriteall
-" set ruler 
-" set showmode
-" set linebreak
-" set nohlsearch
 
 " set tags=/tmp/vim/.tags
 " command Tags execute ':!ctags -a -f /tmp/vim/.tags -R'
