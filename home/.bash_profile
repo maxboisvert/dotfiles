@@ -43,7 +43,7 @@ HISTSIZE=10000
 prependToPath /home/soft/gitflow/
 prependToPath /backedUpFiles/workspace/git-lexflow/git-lexflow-core/src/main/bash/
 prependToPath /backedUpFiles/workspace/mb-release/
-prependToPath $(find -L ~/bin -type d -printf ":%p")
+prependToPath $(find -L ~/boisvertm-bin -type d -printf ":%p")
 
 # alias ruby=/cygdrive/c/RailsInstaller/Ruby2.2.0/bin/ruby.exe
 # # alias rails=/cygdrive/c/RailsInstaller/Ruby2.2.0/bin/rails.bat
