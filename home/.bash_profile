@@ -45,6 +45,11 @@ prependToPath /backedUpFiles/workspace/git-lexflow/git-lexflow-core/src/main/bas
 prependToPath /backedUpFiles/workspace/mb-release/
 prependToPath $(find -L ~/bin -type d -printf ":%p")
 
+# alias ruby=/cygdrive/c/RailsInstaller/Ruby2.2.0/bin/ruby.exe
+# # alias rails=/cygdrive/c/RailsInstaller/Ruby2.2.0/bin/rails.bat
+
+# prependToPath /cygdrive/c/RailsInstaller/Ruby2.2.0/bin
+
 # https://github.com/junegunn/fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='ag -g ""'

@@ -49,11 +49,12 @@ set undolevels=1000
 " autocmd BufEnter * normal! g`"
 autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype ruby setl shiftwidth=2 tabstop=2 softtabstop=2
+" autocmd FocusLost * silent! wa
 
 " map
 let mapleader = '\'
 inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
-nnoremap <Leader>b :ls<CR>:b<Space>
+nnoremap <Leader>f :ls<CR>:b<Space>
 inoremap {<CR> {<CR>}<Esc>O
 
 " fzf
