@@ -46,7 +46,6 @@ set undofile
 set undolevels=1000 
 
 " autocmd
-" autocmd BufEnter * normal! g`"
 autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype ruby setl shiftwidth=2 tabstop=2 softtabstop=2
 " autocmd FocusLost * silent! wa
@@ -57,6 +56,10 @@ inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" 
 nnoremap <Leader>f :ls<CR>:b<Space>
 inoremap {<CR> {<CR>}<Esc>O
 
+" comment
+map <Leader># :s/^/#/<CR>
+
+
 " fzf
 map <C-T> :FZF<CR>
 set rtp+=~/.fzf
@@ -65,6 +68,8 @@ set rtp+=~/.fzf
 set ssop=buffers
 if(argc() == 0)
     autocmd VimEnter * nested :source ~/.session.vim
+else
+    autocmd BufEnter * normal! g`"
 endif
 autocmd VimLeave * :mksession! ~/.session.vim
 
