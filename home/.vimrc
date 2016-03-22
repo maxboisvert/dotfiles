@@ -59,19 +59,21 @@ inoremap {<CR> {<CR>}<Esc>O
 " comment
 map <Leader># :s/^/#/<CR>
 
-
 " fzf
 map <C-T> :FZF<CR>
 set rtp+=~/.fzf
 
 " Session
 set ssop=buffers
+fun! IsSessionFiletype()
+    return index(['gitcommit'], &ft) < 0
+endfun
 if(argc() == 0)
-    autocmd VimEnter * nested :source ~/.session.vim
+    autocmd VimEnter * nested if IsSessionFiletype() | source ~/.session.vim
 else
     autocmd BufEnter * normal! g`"
 endif
-autocmd VimLeave * :mksession! ~/.session.vim
+autocmd VimLeave * if IsSessionFiletype() | mksession! ~/.session.vim
 
 " disabled
 
