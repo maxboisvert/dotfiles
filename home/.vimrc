@@ -54,6 +54,7 @@ autocmd filetype ruby setl shiftwidth=2 tabstop=2 softtabstop=2
 let mapleader = '\'
 inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
 nnoremap <Leader>f :ls<CR>:b<Space>
+nnoremap <Leader>a :b#<CR>
 inoremap {<CR> {<CR>}<Esc>O
 
 " comment
