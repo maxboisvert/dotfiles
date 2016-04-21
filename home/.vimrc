@@ -1,92 +1,114 @@
 
-" minimal
-syntax on
-filetype plugin indent on
+fun! Main()
 
-" indent
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-set autoindent
+    " minimal
+    syntax on
+    filetype plugin indent on
 
-" misc
-set autoread 
-set autowrite
-set autowriteall
-set backspace=2
-set encoding=utf-8
-set hidden
-set history=1000 
-set linebreak
-set nowrap 
+    " indent
+    set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+    set autoindent
 
-" search
-set ignorecase
-set incsearch
-set nohlsearch
-set smartcase
+    " misc
+    set autoread 
+    set autowrite
+    set autowriteall
+    set backspace=2
+    set encoding=utf-8
+    set hidden
+    set history=1000 
+    set linebreak
+    set nowrap 
 
-" ui
-set background=dark
-set completeopt=
-set guioptions=c
-set lazyredraw
-set mouse=
-set ruler 
-set showmode
-set ttyfast
-set visualbell t_vb=
+    " search
+    set ignorecase
+    set incsearch
+    set nohlsearch
+    set smartcase
 
-" backup
-set nobackup 
-set noswapfile
-set nowritebackup 
+    " ui
+    set background=dark
+    set completeopt=
+    set guioptions=c
+    set lazyredraw
+    set mouse=
+    set ruler 
+    set showmode
+    set ttyfast
+    set visualbell t_vb=
 
-" undo
-set undodir=/tmp
-set undofile 
-set undolevels=1000 
+    " backup
+    set nobackup 
+    set noswapfile
+    set nowritebackup 
 
-" autocmd
-autocmd BufNewFile,BufRead *.vm set syntax=html
-autocmd filetype ruby setl shiftwidth=2 tabstop=2 softtabstop=2
-" autocmd FocusLost * silent! wa
+    " undo
+    set undodir=/tmp
+    set undofile 
+    set undolevels=1000 
 
-" map
-let mapleader = '\'
-inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
-nnoremap <Leader>f :ls<CR>:b<Space>
-nnoremap <Leader>a :b#<CR>
-inoremap {<CR> {<CR>}<Esc>O
+    " autocmd
+    autocmd BufNewFile,BufRead *.vm set syntax=html
+    autocmd filetype ruby setl shiftwidth=2 tabstop=2 softtabstop=2
 
-" comment
-map <Leader># :s/^/#/<CR>
+    " map
+    let mapleader = '\'
+    inoremap <expr> <Tab> TabComplete()
+    nnoremap <Leader>f :ls<CR>:b<Space>
+    nnoremap <Leader>a :b#<CR>
+    inoremap {<CR> {<CR>}<Esc>O
 
-" fzf
-map <C-T> :FZF<CR>
-set rtp+=~/.fzf
+    call InitSessionState()
+    call EnableFzf()
 
-" Session
-set ssop=buffers
+endfun
+
+
+" functions
+
+fun! EnableFzf()
+    map <C-T> :FZF<CR>
+    set rtp+=~/.fzf
+endfun
+
 fun! IsSessionFiletype()
     return index(['gitcommit'], &ft) < 0
 endfun
-if(argc() == 0)
-    autocmd VimEnter * nested if IsSessionFiletype() | source ~/.session.vim
-else
-    autocmd BufEnter * normal! g`"
-endif
-autocmd VimLeave * if IsSessionFiletype() | mksession! ~/.session.vim
+
+fun! TabComplete()
+    if strpart(getline('.'), col('.') - 2, 1) =~ '\w'
+        return "\<C-P>"
+    else
+        return "\<Tab>"
+    endif
+endfun
+
+fun! InitSessionState()
+    set ssop=buffers
+    if(argc() == 0)
+        autocmd VimEnter * nested if IsSessionFiletype() | source ~/.session.vim
+    else
+        autocmd BufEnter * normal! g`"
+    endif
+    autocmd VimLeave * if IsSessionFiletype() | mksession! ~/.session.vim
+endfun
+
+fun! SetVexplore()
+    let g:netrw_browse_split=4 
+    let g:netrw_winsize = 20
+    let g:netrw_liststyle=3 
+    let g:netrw_banner = 0
+    let g:netrw_altv = 1
+endfun
+
+call Main()
 
 " disabled
-
-" Vexplore
-" let g:netrw_browse_split=4 
-" let g:netrw_winsize = 20
-" let g:netrw_liststyle=3 
-" let g:netrw_banner = 0
-" let g:netrw_altv = 1
 
 " set complete=.,w,b,u,t,i
 
 " set tags=/tmp/vim/.tags
 " command Tags execute ':!ctags -a -f /tmp/vim/.tags -R'
+
+" autocmd FocusLost * silent! wa
 

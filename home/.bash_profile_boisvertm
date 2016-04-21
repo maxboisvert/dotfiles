@@ -1,6 +1,6 @@
 #!/bin/bash
 
-umask 0002
+# umask 0002
 
 function prependToPath {
 	export PATH=$1:$PATH
@@ -28,8 +28,8 @@ function maven3 {
 	prependToPath $M2_HOME/bin
 }
 
-java8
-maven3
+# java8
+# maven3
 
 export PAGER=less
 
@@ -40,21 +40,12 @@ export GIT_EDITOR="$VISUAL"
 
 HISTSIZE=10000
 
-prependToPath /home/soft/gitflow/
-prependToPath /backedUpFiles/workspace/git-lexflow/git-lexflow-core/src/main/bash/
-prependToPath /backedUpFiles/workspace/mb-release/
-prependToPath $(find -L ~/boisvertm-bin -type d -printf ":%p")
-
-# alias ruby=/cygdrive/c/RailsInstaller/Ruby2.2.0/bin/ruby.exe
-# # alias rails=/cygdrive/c/RailsInstaller/Ruby2.2.0/bin/rails.bat
-
-# prependToPath /cygdrive/c/RailsInstaller/Ruby2.2.0/bin
+# prependToPath /backedUpFiles/workspace/mb-release/
+prependToPath $(ls -d ~/boisvertm-bin/* | tr '\n' ':')
 
 # https://github.com/junegunn/fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='ag -g ""'
-
-alias fim='vim $(ag -g "" | fzf)'
 
 bind 'set bell-style none'
 
