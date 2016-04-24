@@ -7,7 +7,7 @@ syntax on
 filetype plugin indent on
 
 " indent
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 set autoindent
 
 " misc
@@ -20,6 +20,7 @@ set hidden
 set history=1000 
 set linebreak
 set nowrap 
+set modelines=0
 
 " search
 set ignorecase
@@ -32,7 +33,7 @@ set background=dark
 set completeopt=
 set guioptions=c
 set lazyredraw
-set mouse=
+set mouse=a
 set ruler 
 set showmode
 set ttyfast
@@ -50,17 +51,20 @@ set undolevels=1000
 
 " autocmd
 autocmd BufNewFile,BufRead *.vm set syntax=html
-autocmd filetype ruby setl shiftwidth=2 tabstop=2 softtabstop=2
+autocmd filetype java,python,vim setl shiftwidth=4 tabstop=4 softtabstop=4
 
 " map
 let mapleader = '\'
 nnoremap <Leader>f :ls<CR>:b<Space>
 nnoremap <Leader>a :b#<CR>
+nnoremap <Leader>t :NERDTreeToggle<CR>
 inoremap {<CR> {<CR>}<Esc>O
+" inoremap <expr> <Tab> TabComplete()
 
 fun! Init()
     call InitSessionState()
     call EnableFzf()
+    " call SetVexplore()
 endfun
 
 " functions
@@ -84,13 +88,17 @@ fun! TabComplete()
 endfun
 
 fun! InitSessionState()
-    set ssop=buffers
     if(argc() == 0)
-        autocmd VimEnter * nested if IsSessionFiletype() | source ~/.session.vim
+        set ssop=buffers
+        let pwdhash = system("echo -n $(pwd | md5)")
+        let session_file = $HOME . "/.vim/session/" . pwdhash . ".vim"
+        if filereadable(session_file)
+            exe "autocmd VimEnter * nested if IsSessionFiletype() | source " . session_file
+        endif
+        exe "autocmd VimLeave * if IsSessionFiletype() | mksession! " . session_file
     else
-        autocmd BufEnter * normal! g`"
+        autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | normal! g`"
     endif
-    autocmd VimLeave * if IsSessionFiletype() | mksession! ~/.session.vim
 endfun
 
 fun! SetVexplore()
