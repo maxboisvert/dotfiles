@@ -1,5 +1,5 @@
 
-" plugins: nerdcommenter nerdtree supertab vim-bundler vim-rails
+" plugins: nerdcommenter nerdtree supertab vim-bundler vim-rails ctrlp
 execute pathogen#infect()
 
 " minimal
@@ -54,63 +54,12 @@ autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype java,python,vim setl shiftwidth=4 tabstop=4 softtabstop=4
 
 " map
-let mapleader = '\'
-nnoremap <Leader>f :ls<CR>:b<Space>
+let mapleader = ';'
+nnoremap <Leader>r :ls<CR>:b<Space>
 nnoremap <Leader>a :b#<CR>
 nnoremap <Leader>t :NERDTreeToggle<CR>
+nnoremap <Leader>f :CtrlPMixed<CR>
 inoremap {<CR> {<CR>}<Esc>O
-" inoremap <expr> <Tab> TabComplete()
-
-fun! Init()
-    call InitSessionState()
-    call EnableFzf()
-    " call SetVexplore()
-endfun
-
-" functions
-
-fun! EnableFzf()
-    map <C-T> :FZF<CR>
-    set rtp+=~/.fzf
-endfun
-
-fun! IsSessionFiletype()
-    return index(['gitcommit'], &ft) < 0
-endfun
-
-fun! TabComplete()
-    " inoremap <expr> <Tab> TabComplete()
-    if strpart(getline('.'), col('.') - 2, 1) =~ '\w'
-        return "\<C-P>"
-    else
-        return "\<Tab>"
-    endif
-endfun
-
-fun! InitSessionState()
-    if(argc() == 0)
-        set ssop=buffers
-        let pwdhash = system("echo -n $(pwd | md5)")
-        let session_file = $HOME . "/.vim/session/" . pwdhash . ".vim"
-        if filereadable(session_file)
-            exe "autocmd VimEnter * nested if IsSessionFiletype() | source " . session_file
-        endif
-        exe "autocmd VimLeave * if IsSessionFiletype() | mksession! " . session_file
-    else
-        autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | normal! g`"
-    endif
-endfun
-
-fun! SetVexplore()
-    set mouse=a
-    let g:netrw_browse_split=4 
-    let g:netrw_winsize = 20
-    let g:netrw_liststyle=3 
-    let g:netrw_banner = 0
-    let g:netrw_altv = 1
-endfun
-
-call Init()
 
 " disabled
 
