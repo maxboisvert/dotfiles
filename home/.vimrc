@@ -12,8 +12,6 @@ set autoindent
 
 " misc
 set autoread 
-set autowrite
-set autowriteall
 set backspace=2
 set encoding=utf-8
 set hidden
