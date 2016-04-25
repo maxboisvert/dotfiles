@@ -1,10 +1,23 @@
 
-" plugins: nerdcommenter nerdtree supertab vim-bundler vim-rails ctrlp
-execute pathogen#infect()
+" Vundle - Launch vim and run :PluginInstall
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ervandew/supertab'
+Plugin 'tpope/vim-rails'
+Plugin 'kien/ctrlp.vim'
+call vundle#end()
+
+
+" vimrc
 
 " minimal
-syntax on
 filetype plugin indent on
+syntax on
 
 " indent
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
@@ -62,11 +75,5 @@ nnoremap <Leader>r :CtrlPMRU<CR>
 inoremap {<CR> {<CR>}<Esc>O
 
 " disabled
-
-" set complete=.,w,b,u,t,i
-
 " set tags=/tmp/vim/.tags
 " command Tags execute ':!ctags -a -f /tmp/vim/.tags -R'
-
-" autocmd FocusLost * silent! wa
-
