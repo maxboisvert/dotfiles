@@ -50,13 +50,15 @@ set undolevels=1000
 " autocmd
 autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype java,python,vim setl shiftwidth=4 tabstop=4 softtabstop=4
+autocmd BufEnter * silent! normal! g`"
 
 " map
 let mapleader = ';'
-nnoremap <Leader>r :ls<CR>:b<Space>
+nnoremap <Leader>s :ls<CR>:b<Space>
 nnoremap <Leader>a :b#<CR>
 nnoremap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlPMixed<CR>
+nnoremap <Leader>r :CtrlPMRU<CR>
 inoremap {<CR> {<CR>}<Esc>O
 
 " disabled
