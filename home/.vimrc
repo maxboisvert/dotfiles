@@ -10,6 +10,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
 Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-endwise'
 call vundle#end()
 
 
