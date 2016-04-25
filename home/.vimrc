@@ -9,6 +9,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-bundler'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-endwise'
 call vundle#end()
@@ -63,7 +64,7 @@ set undolevels=1000
 
 " autocmd
 autocmd BufNewFile,BufRead *.vm set syntax=html
-autocmd filetype java,python,vim setl shiftwidth=4 tabstop=4 softtabstop=4
+autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufEnter * silent! normal! g`"
 
 " map
@@ -73,7 +74,10 @@ nnoremap <Leader>a :b#<CR>
 nnoremap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlPMixed<CR>
 nnoremap <Leader>r :CtrlPMRU<CR>
-inoremap {<CR> {<CR>}<Esc>O
+" inoremap {<CR> {<CR>}<Esc>O
+
+" plugins config
+let g:NERDTreeMouseMode=3
 
 " disabled
 " set tags=/tmp/vim/.tags

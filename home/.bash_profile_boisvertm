@@ -49,3 +49,18 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 bind 'set bell-style none'
 
+# aliases
+
+alias bi='bundle install'
+alias be='bundle exec'
+alias berc='be rails console'
+
+alias ura='gfop && bundle install && bundle exec rake db:migrate db:test:prepare'
+
+alias gfo='git fetch --prune origin'
+alias gfop='gfo && git pull'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../../'
+
