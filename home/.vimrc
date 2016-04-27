@@ -5,13 +5,15 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ervandew/supertab'
+" Plugin 'scrooloose/nerdcommenter'
+" Plugin 'scrooloose/nerdtree'
+" Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-bundler'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-endwise'
+" Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'tpope/vim-endwise'
+Plugin 'cohama/lexima.vim'
+Plugin 'vim-scripts/mru.vim'
 call vundle#end()
 
 
@@ -25,14 +27,18 @@ syntax on
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 set autoindent
 
+" wrap
+set linebreak
+set wrap 
+set breakindent
+let &showbreak='↳ '
+
 " misc
 set autoread 
 set backspace=2
 set encoding=utf-8
 set hidden
 set history=1000 
-set linebreak
-set nowrap 
 set modelines=0
 
 " search
@@ -66,19 +72,58 @@ set undolevels=1000
 autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufEnter * silent! normal! g`"
+" autocmd VimEnter * silent! MRU
 
-" map
+" mapping
+inoremap <expr> <Tab> TabComplete()
+" inoremap {<CR> {<CR>}<Esc>O
+
+" leader map
 let mapleader = ';'
 nnoremap <Leader>s :ls<CR>:b<Space>
 nnoremap <Leader>a :b#<CR>
-nnoremap <Leader>t :NERDTreeToggle<CR>
-nnoremap <Leader>f :CtrlPMixed<CR>
-nnoremap <Leader>r :CtrlPMRU<CR>
-" inoremap {<CR> {<CR>}<Esc>O
+nnoremap <Leader>p :set paste!<CR>
+nnoremap <Leader>f :MRU<CR>
+nnoremap <Leader>v :Vexplore .<CR>
+" nnoremap <Leader>t :NERDTreeToggle<CR>
+" nnoremap <Leader>f :CtrlPMixed<CR>
+" nnoremap <Leader>r :CtrlPMRU<CR>
+" nnoremap <Leader>d :CtrlPBuffer<CR>
 
 " plugins config
 let g:NERDTreeMouseMode=3
+let g:lexima_enable_endwise_rules=1
+let MRU_Auto_Close = 0
+" let MRU_Window_Height = 10
+
+
+" functions
+
+fun! Init()
+    call SetVexplore()
+endfun
+
+fun! TabComplete()
+	" inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
+    if strpart(getline('.'), col('.') - 2, 1) =~ '\w'
+        return "\<C-P>"
+    else
+        return "\<Tab>"
+    endif
+endfun
+
+fun! SetVexplore()
+    set mouse=a
+    let g:netrw_browse_split=4 
+    let g:netrw_winsize = 20
+    let g:netrw_liststyle=3 
+    let g:netrw_banner = 0
+    let g:netrw_altv = 1
+endfun
+
+call Init()
 
 " disabled
 " set tags=/tmp/vim/.tags
 " command Tags execute ':!ctags -a -f /tmp/vim/.tags -R'
+
