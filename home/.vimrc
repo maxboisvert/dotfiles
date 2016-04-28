@@ -6,14 +6,15 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " Plugin 'scrooloose/nerdcommenter'
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'ervandew/supertab'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-bundler'
 " Plugin 'ctrlpvim/ctrlp.vim'
 " Plugin 'tpope/vim-endwise'
 Plugin 'cohama/lexima.vim'
 Plugin 'vim-scripts/mru.vim'
+" Plugin 'monokrome/buffersweeper.vim'
 call vundle#end()
 
 
@@ -38,7 +39,7 @@ set autoread
 set backspace=2
 set encoding=utf-8
 set hidden
-set history=1000 
+set history=100 
 set modelines=0
 
 " search
@@ -57,6 +58,7 @@ set ruler
 set showmode
 set ttyfast
 set visualbell t_vb=
+set wildmenu
 
 " backup
 set nobackup 
@@ -72,11 +74,8 @@ set undolevels=1000
 autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufEnter * silent! normal! g`"
-" autocmd VimEnter * silent! MRU
-
-" mapping
-inoremap <expr> <Tab> TabComplete()
-" inoremap {<CR> {<CR>}<Esc>O
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if winnr("$") == 1 && bufname('') == '__MRU_Files__' | q | endif
 
 " leader map
 let mapleader = ';'
@@ -84,46 +83,26 @@ nnoremap <Leader>s :ls<CR>:b<Space>
 nnoremap <Leader>a :b#<CR>
 nnoremap <Leader>p :set paste!<CR>
 nnoremap <Leader>f :MRU<CR>
-nnoremap <Leader>v :Vexplore .<CR>
-" nnoremap <Leader>t :NERDTreeToggle<CR>
+nnoremap <Leader>t :NERDTreeToggle<CR>
 " nnoremap <Leader>f :CtrlPMixed<CR>
 " nnoremap <Leader>r :CtrlPMRU<CR>
 " nnoremap <Leader>d :CtrlPBuffer<CR>
+" nnoremap <Leader>v :Vexplore .<CR>
 
-" plugins config
+" plugins configuration
 let g:NERDTreeMouseMode=3
 let g:lexima_enable_endwise_rules=1
 let MRU_Auto_Close = 0
+let MRU_Exclude_Files = '/\.git/\|/tmp/'
 " let MRU_Window_Height = 10
 
+" autocmd BufHidden * call CloseUnchangedBuffers()
 
-" functions
-
-fun! Init()
-    call SetVexplore()
-endfun
-
-fun! TabComplete()
-	" inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
-    if strpart(getline('.'), col('.') - 2, 1) =~ '\w'
-        return "\<C-P>"
-    else
-        return "\<Tab>"
-    endif
-endfun
-
-fun! SetVexplore()
-    set mouse=a
-    let g:netrw_browse_split=4 
-    let g:netrw_winsize = 20
-    let g:netrw_liststyle=3 
-    let g:netrw_banner = 0
-    let g:netrw_altv = 1
-endfun
-
-call Init()
-
-" disabled
-" set tags=/tmp/vim/.tags
-" command Tags execute ':!ctags -a -f /tmp/vim/.tags -R'
+function! CloseUnchangedBuffers()
+	let nr = bufnr(expand('<afile>'))
+		if getbufvar(nr, '&modified') == 0
+			exe nr . 'bd'
+		endif
+	unlet nr
+endfunction
 

@@ -64,3 +64,4 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../../'
 
+source ~/.git-completion.bash
