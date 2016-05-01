@@ -18,6 +18,8 @@ call vundle#end()
 filetype plugin indent on
 syntax on
 
+let dirhash=system('pwd | md5 | xargs echo -n')
+
 " indent
 set autoindent
 set expandtab
@@ -69,6 +71,11 @@ set nobackup
 set noswapfile
 set nowritebackup 
 
+" tags
+let tagsfile="/tmp/.vim-tags-" . dirhash
+let &tags=tagsfile
+command Tags execute ':!ctags -R -f ' . tagsfile
+
 " autocmd
 autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
@@ -111,8 +118,4 @@ fun! TabComplete()
         return "\<Tab>"
     endif
 endfun
-
-" disabled
-" set tags=/tmp/vim/.tags
-" command Tags execute ':!ctags -a -f /tmp/vim/.tags -R'
 
