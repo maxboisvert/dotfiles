@@ -49,6 +49,7 @@ set smartcase
 set wildignore+=*/.git/*
 
 " ui
+set splitbelow
 set background=dark
 set completeopt=
 set guioptions=c
@@ -79,12 +80,15 @@ nnoremap <Leader>s :ls<CR>:b<Space>
 nnoremap <Leader>a :b#<CR>
 nnoremap <Leader>p :set paste!<CR>
 nnoremap <Leader>c :bufdo bd<CR>
+nnoremap <Leader>t :split term://bash<CR>
 
 inoremap <expr> <Tab> TabComplete()
+map <Enter> :
 
 nnoremap <Leader>r :CtrlPMRU<CR>
 nnoremap <Leader>f :CtrlPMixed<CR>
 nnoremap <Leader>v :CtrlPLine<CR>
+
 
 " plugins configuration
 let g:lexima_enable_endwise_rules=1
