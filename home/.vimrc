@@ -48,7 +48,7 @@ set ignorecase
 set incsearch
 set nohlsearch
 set smartcase
-set wildignore+=*/.git/*
+set wildignore+=*/.git/*,*/vendor/*,*/node_modules/*,*.log,*/tmp/*,*.zip
 
 " ui
 set splitbelow
@@ -74,7 +74,7 @@ set nowritebackup
 " tags
 let tagsfile="/tmp/.vim-tags-" . dirhash
 let &tags=tagsfile
-command Tags execute ':!ctags -R -f ' . tagsfile
+command Tags execute ':!ctags -R --exclude=*/vendor/* --exclude=*/node_modules/* --exclude=*.js -f ' . tagsfile
 
 " autocmd
 autocmd BufNewFile,BufRead *.vm set syntax=html
@@ -96,9 +96,9 @@ nnoremap <Leader>r :CtrlPMRU<CR>
 nnoremap <Leader>f :CtrlPMixed<CR>
 nnoremap <Leader>v :CtrlPLine<CR>
 
-
 " plugins configuration
-let g:lexima_enable_endwise_rules=1
+let g:lexima_enable_endwise_rules = 1
+let g:ctrlp_clear_cache_on_exit = 0
 
 " Vexplorer
 let g:netrw_browse_split=4 
