@@ -5,8 +5,8 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-bundler'
+" Plugin 'tpope/vim-rails'
+" Plugin 'tpope/vim-bundler'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'cohama/lexima.vim'
 call vundle#end()
@@ -48,7 +48,7 @@ set ignorecase
 set incsearch
 set nohlsearch
 set smartcase
-set wildignore+=*/.git/*,*/vendor/*,*/node_modules/*,*.log,*/tmp/*,*.zip
+set wildignore+=*/.git/*,*/vendor/*,*/node_modules/*,*.log,*/tmp/*,*.zip,*.swp,*.bak,*.pyc,*.class
 
 " ui
 set splitbelow
@@ -80,6 +80,7 @@ command Tags execute ':!ctags -R --exclude=*/vendor/* --exclude=*/node_modules/*
 autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufEnter * silent! normal! g`"
+autocmd BufNewFile,BufRead Gemfile,Vagrantfile,Guardfile set filetype=ruby
 
 " mappings
 let mapleader = ' '
@@ -95,10 +96,13 @@ map <Enter> :
 nnoremap <Leader>r :CtrlPMRU<CR>
 nnoremap <Leader>f :CtrlPMixed<CR>
 nnoremap <Leader>v :CtrlPLine<CR>
+nnoremap <Leader>j :CtrlPBufTagAll<CR>
 
 " plugins configuration
 let g:lexima_enable_endwise_rules = 1
 let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_mruf_exclude = '.*/tmp/.*\|.*/.git/.*'
+let g:ctrlp_mruf_relative = 1
 
 " Vexplorer
 let g:netrw_browse_split=4 

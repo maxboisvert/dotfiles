@@ -64,4 +64,6 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../../'
 
+alias vim=nvim
+
 source ~/.git-completion.bash
