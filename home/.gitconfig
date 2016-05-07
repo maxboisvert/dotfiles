@@ -1,0 +1,7 @@
+[user]
+	name = Maxime Boisvert
+	email = maxime.boisvert@shopify.com
+[rerere]
+	enabled = 1
+[push]
+	default = simple

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+
+if [ "$CURRENT_BRANCH" == "master" ]; then
+    echo "Force push on master is not available"
+    exit 1
+fi
+
+git push origin +$CURRENT_BRANCH

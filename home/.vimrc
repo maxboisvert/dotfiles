@@ -5,8 +5,6 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-" Plugin 'tpope/vim-rails'
-" Plugin 'tpope/vim-bundler'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'cohama/lexima.vim'
 call vundle#end()
@@ -24,18 +22,18 @@ let dirhash=system('pwd | md5 | xargs echo -n')
 set autoindent
 set expandtab
 set shiftwidth=2
-set softtabstop=2 
-set tabstop=2 
+set softtabstop=2
+set tabstop=2
 
 " wrap
 let &showbreak='↳ '
 set breakindent
 set linebreak
-set wrap 
+set wrap
 
 " misc
-set undolevels=1000 
-set autoread 
+set undolevels=1000
+set autoread
 set backspace=2
 set complete-=i
 set encoding=utf-8
@@ -51,25 +49,25 @@ set smartcase
 set wildignore+=*/.git/*,*/vendor/*,*/node_modules/*,*.log,*/tmp/*,*.zip,*.swp,*.bak,*.pyc,*.class
 
 " ui
+set scrolloff=5
 set splitbelow
 set background=dark
 set completeopt=
 set guioptions=c
-set laststatus=1
+set laststatus=2
 set lazyredraw
 set mouse=a
-set ruler 
+set ruler
 set showmode
 set t_vb=
-set title
 set ttyfast
-set visualbell 
+set visualbell
 set wildmenu
 
 " backup
-set nobackup 
+set nobackup
 set noswapfile
-set nowritebackup 
+set nowritebackup
 
 " tags
 let tagsfile="/tmp/.vim-tags-" . dirhash
@@ -82,6 +80,10 @@ autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufEnter * silent! normal! g`"
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,Guardfile set filetype=ruby
 
+" highlight whitespaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
 " mappings
 let mapleader = ' '
 nnoremap <Leader>s :ls<CR>:b<Space>
@@ -93,21 +95,21 @@ nnoremap <Leader>t :split term://bash<CR>
 inoremap <expr> <Tab> TabComplete()
 map <Enter> :
 
-nnoremap <Leader>r :CtrlPMRU<CR>
-nnoremap <Leader>f :CtrlPMixed<CR>
-nnoremap <Leader>v :CtrlPLine<CR>
+nnoremap <Leader>f :CtrlPMRU<CR>
+nnoremap <Leader>v :CtrlPMixed<CR>
+nnoremap <Leader>r :CtrlPLine<CR>
 nnoremap <Leader>j :CtrlPBufTagAll<CR>
 
 " plugins configuration
 let g:lexima_enable_endwise_rules = 1
 let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_mruf_exclude = '.*/tmp/.*\|.*/.git/.*'
 let g:ctrlp_mruf_relative = 1
+let g:ctrlp_mruf_exclude = '.*/tmp/.*\|.*/.git/.*'
 
 " Vexplorer
-let g:netrw_browse_split=4 
+let g:netrw_browse_split=4
 let g:netrw_winsize = 20
-let g:netrw_liststyle=3 
+let g:netrw_liststyle=3
 let g:netrw_banner = 0
 let g:netrw_altv = 1
 
