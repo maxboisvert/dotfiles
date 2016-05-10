@@ -102,6 +102,7 @@ nnoremap <Leader>j :CtrlPBufTagAll<CR>
 
 " plugins configuration
 let g:lexima_enable_endwise_rules = 1
+
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_mruf_relative = 1
 let g:ctrlp_mruf_exclude = '.*/tmp/.*\|.*/.git/.*'
