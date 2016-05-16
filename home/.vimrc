@@ -86,8 +86,9 @@ match ExtraWhitespace /\s\+$/
 
 " mappings
 let mapleader = ' '
+nnoremap <Leader><Tab> :b#<CR>
+
 nnoremap <Leader>s :ls<CR>:b<Space>
-nnoremap <Leader>a :b#<CR>
 nnoremap <Leader>p :set paste!<CR>
 nnoremap <Leader>c :bufdo bd<CR>
 nnoremap <Leader>t :split term://bash<CR>
@@ -95,10 +96,26 @@ nnoremap <Leader>t :split term://bash<CR>
 inoremap <expr> <Tab> TabComplete()
 map <Enter> :
 
+nnoremap j gj
+nnoremap k gk
+
 nnoremap <Leader>f :CtrlPMRU<CR>
 nnoremap <Leader>v :CtrlPMixed<CR>
 nnoremap <Leader>r :CtrlPLine<CR>
 nnoremap <Leader>j :CtrlPBufTagAll<CR>
+
+" rails
+command Rspec :term bundle exec rspec --fail-fast
+command RspecCurrentFile :term bundle exec rspec --fail-fast %
+command Rubocup :term bundle exec rubocop
+
+" git
+command GitStatus :term git status
+command GitLog :term git log
+command GitDiff :term git diff
+command GitCommit :term commit
+command GitPushPr :term git_force_push_current
+command GitAmend :term git_amend
 
 " plugins configuration
 let g:lexima_enable_endwise_rules = 1
@@ -113,6 +130,11 @@ let g:netrw_winsize = 20
 let g:netrw_liststyle=3
 let g:netrw_banner = 0
 let g:netrw_altv = 1
+
+if has('nvim')
+    " set termguicolors
+    " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
 
 " functions
 

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+grep -RlF "$1" .
+
