@@ -2,5 +2,5 @@
 
 set -e
 
-grep -RlF "$1" .
+grep -RlF "$1" . | grep -v git
 

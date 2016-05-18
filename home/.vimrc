@@ -9,7 +9,6 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'cohama/lexima.vim'
 call vundle#end()
 
-
 " vimrc
 
 " minimal
@@ -69,6 +68,11 @@ set nobackup
 set noswapfile
 set nowritebackup
 
+if has('nvim')
+    " set termguicolors
+    " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
+
 " tags
 let tagsfile="/tmp/.vim-tags-" . dirhash
 let &tags=tagsfile
@@ -86,23 +90,22 @@ match ExtraWhitespace /\s\+$/
 
 " mappings
 let mapleader = ' '
-nnoremap <Leader><Tab> :b#<CR>
+nnoremap <Leader>h :b#<CR>
 
 nnoremap <Leader>s :ls<CR>:b<Space>
 nnoremap <Leader>p :set paste!<CR>
 nnoremap <Leader>c :bufdo bd<CR>
 nnoremap <Leader>t :split term://bash<CR>
 
-inoremap <expr> <Tab> TabComplete()
-map <Enter> :
-
-nnoremap j gj
-nnoremap k gk
-
 nnoremap <Leader>f :CtrlPMRU<CR>
 nnoremap <Leader>v :CtrlPMixed<CR>
 nnoremap <Leader>r :CtrlPLine<CR>
 nnoremap <Leader>j :CtrlPBufTagAll<CR>
+
+inoremap <expr> <Tab> TabComplete()
+map <Enter> :
+nnoremap j gj
+nnoremap k gk
 
 " rails
 command Rspec :term bundle exec rspec --fail-fast
@@ -120,6 +123,7 @@ command GitAmend :term git_amend
 " plugins configuration
 let g:lexima_enable_endwise_rules = 1
 
+let g:ctrlp_max_files = 200000
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_mruf_relative = 1
 let g:ctrlp_mruf_exclude = '.*/tmp/.*\|.*/.git/.*'
@@ -131,16 +135,9 @@ let g:netrw_liststyle=3
 let g:netrw_banner = 0
 let g:netrw_altv = 1
 
-if has('nvim')
-    " set termguicolors
-    " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
-
 " functions
 
 fun! TabComplete()
-	" inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
-	" inoremap <expr> <Tab> TabComplete()
     if strpart(getline('.'), col('.') - 2, 1) =~ '\w'
         return "\<C-P>"
     else
