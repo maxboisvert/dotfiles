@@ -2,5 +2,5 @@
 
 set -e
 
-git fetch origin
+git fetch origin master
 git rebase -i origin/master

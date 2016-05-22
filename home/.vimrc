@@ -7,22 +7,22 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'cohama/lexima.vim'
+Plugin 'vim-scripts/gitignore'
 call vundle#end()
 
-" vimrc
+" best vimrc
 
 " minimal
 filetype plugin indent on
 syntax on
 
-let dirhash=system('pwd | md5 | xargs echo -n')
-
 " indent
+let tabsize=2
+let &shiftwidth=tabsize
+let &softtabstop=tabsize
+let &tabstop=tabsize
 set autoindent
 set expandtab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
 
 " wrap
 let &showbreak='↳ '
@@ -45,7 +45,6 @@ set ignorecase
 set incsearch
 set nohlsearch
 set smartcase
-set wildignore+=*/.git/*,*/vendor/*,*/node_modules/*,*.log,*/tmp/*,*.zip,*.swp,*.bak,*.pyc,*.class
 
 " ui
 set scrolloff=5
@@ -58,22 +57,28 @@ set lazyredraw
 set mouse=a
 set ruler
 set showmode
-set t_vb=
-set ttyfast
 set visualbell
-set wildmenu
+set cursorline
 
 " backup
 set nobackup
 set noswapfile
 set nowritebackup
 
+" wild
+set wildmenu
+" set wildignore+=*/.git/*,*/vendor/*,*/node_modules/*,*.log,*/tmp/*,*.zip,*.swp,*.bak,*.pyc,*.class
+
 if has('nvim')
     " set termguicolors
     " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+else
+    set ttyfast
+    set t_vb=
 endif
 
 " tags
+let dirhash=system('pwd | md5 | xargs echo -n')
 let tagsfile="/tmp/.vim-tags-" . dirhash
 let &tags=tagsfile
 command Tags execute ':!ctags -R --exclude=*/vendor/* --exclude=*/node_modules/* --exclude=*.js -f ' . tagsfile
@@ -83,29 +88,37 @@ autocmd BufNewFile,BufRead *.vm set syntax=html
 autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufEnter * silent! normal! g`"
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,Guardfile set filetype=ruby
+autocmd VimEnter * WildignoreFromGitignore
 
 " highlight whitespaces
 highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+match ExtraWhitespace /\s\+\%#\@<!$/
 
 " mappings
 let mapleader = ' '
-nnoremap <Leader>h :b#<CR>
 
+inoremap <expr> <Tab> TabComplete()
+
+nnoremap <Leader>j :b#<CR>
 nnoremap <Leader>s :ls<CR>:b<Space>
 nnoremap <Leader>p :set paste!<CR>
 nnoremap <Leader>c :bufdo bd<CR>
 nnoremap <Leader>t :split term://bash<CR>
-
 nnoremap <Leader>f :CtrlPMRU<CR>
 nnoremap <Leader>v :CtrlPMixed<CR>
-nnoremap <Leader>r :CtrlPLine<CR>
-nnoremap <Leader>j :CtrlPBufTagAll<CR>
 
-inoremap <expr> <Tab> TabComplete()
+" nnoremap <Leader>r :CtrlPLine<CR>
+" nnoremap <Leader>j :CtrlPBufTagAll<CR>
+
 map <Enter> :
+
 nnoremap j gj
 nnoremap k gk
+
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " rails
 command Rspec :term bundle exec rspec --fail-fast
@@ -134,6 +147,8 @@ let g:netrw_winsize = 20
 let g:netrw_liststyle=3
 let g:netrw_banner = 0
 let g:netrw_altv = 1
+
+
 
 " functions
 
