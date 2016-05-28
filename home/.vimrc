@@ -7,10 +7,10 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_max_files = 200000
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_mruf_relative = 1
 let g:ctrlp_mruf_exclude = '.*/tmp/.*\|.*/.git/.*'
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_max_files = 200000
+let g:ctrlp_mruf_relative = 1
 
 Plugin 'cohama/lexima.vim'
 let g:lexima_enable_endwise_rules = 1
@@ -19,8 +19,6 @@ Plugin 'vim-scripts/gitignore'
 call vundle#end()
 
 " best vimrc
-
-" minimal
 filetype plugin indent on
 syntax on
 
