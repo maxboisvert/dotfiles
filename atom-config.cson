@@ -1,0 +1,14 @@
+"*":
+  core: {}
+  editor:
+    fontSize: 13
+    softWrap: true
+  "exception-reporting":
+    userId: "d84e4699-6740-f0ec-29cf-d33aaa6cfc84"
+  "find-and-replace":
+    scrollToResultOnLiveSearch: true
+  "tree-view":
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
+  welcome:
+    showOnStartup: false

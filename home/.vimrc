@@ -11,6 +11,7 @@ let g:ctrlp_mruf_exclude = '.*/tmp/.*\|.*/.git/.*'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_files = 200000
 let g:ctrlp_mruf_relative = 1
+" let g:ctrlp_compare_lim = 0
 
 Plugin 'cohama/lexima.vim'
 let g:lexima_enable_endwise_rules = 1
@@ -23,10 +24,9 @@ filetype plugin indent on
 syntax on
 
 " indent
-let tabsize=2
-let &shiftwidth=tabsize
-let &softtabstop=tabsize
-let &tabstop=tabsize
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set autoindent
 set expandtab
 
@@ -40,11 +40,9 @@ set wrap
 set undolevels=1000
 set autoread
 set backspace=2
-set complete-=i
 set encoding=utf-8
 set hidden
 set history=1000
-set modelines=0
 
 " search
 set ignorecase
@@ -54,11 +52,12 @@ set smartcase
 
 " ui
 let mapleader = ' '
+set foldcolumn=2
+" set number
 set scrolloff=5
 set splitbelow
 set background=dark
 set completeopt=
-set guioptions=c
 set laststatus=2
 set lazyredraw
 set mouse=a
@@ -69,7 +68,6 @@ set cursorline
 set ttyfast
 set t_vb=
 set wildmenu
-set wildignore+=*/.git/*,*/vendor/*,*/node_modules/*,*.log,*/tmp/*,*.zip,*.swp,*.bak,*.pyc,*.class
 
 " backup
 set nobackup
@@ -77,20 +75,19 @@ set noswapfile
 set nowritebackup
 
 if has('nvim')
-    " set termguicolors
-    " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+    set clipboard+=unnamedplus
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
 inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
 map <Enter> :
 nnoremap <Leader>c :bufdo bd<CR>
 nnoremap <Leader>p :CtrlPMRUFiles<CR>
+nnoremap <Leader>o :CtrlP<CR>
 nnoremap j gj
 nnoremap k gk
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-noremap <Up> <NOP>
+nnoremap <Leader>t :split term://bash<CR>
 
 " autocmd
 autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
@@ -98,7 +95,10 @@ autocmd BufEnter * silent! normal! g`"
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,Guardfile set filetype=ruby
 autocmd VimEnter * WildignoreFromGitignore
 
+highlight CursorLine cterm=None ctermbg=235 guibg=#242424
+highlight FoldColumn ctermbg=235 guibg=#242424
 highlight ExtraWhitespace ctermbg=red guibg=red
+
 match ExtraWhitespace /\s\+\%#\@<!$/
 
 " Tags
@@ -129,13 +129,7 @@ let g:netrw_altv = 1
 
 " disabled
 
-" autocmd BufNewFile,BufRead *.vm set syntax=html
-
-" nnoremap <Leader>r :CtrlPLine<CR>
-" nnoremap <Leader>j :CtrlPBufTagAll<CR>
-
 " nnoremap <Leader>j :b#<CR>
 " nnoremap <Leader>s :ls<CR>:b<Space>
 " nnoremap <Leader>p :set paste!<CR>
-" nnoremap <Leader>t :split term://bash<CR>
 
