@@ -5,17 +5,8 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-
 Plugin 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_mruf_exclude = '.*/tmp/.*\|.*/.git/.*'
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_max_files = 200000
-let g:ctrlp_mruf_relative = 1
-" let g:ctrlp_compare_lim = 0
-
 Plugin 'cohama/lexima.vim'
-let g:lexima_enable_endwise_rules = 1
-
 Plugin 'vim-scripts/gitignore'
 call vundle#end()
 
@@ -36,6 +27,17 @@ set breakindent
 set linebreak
 set wrap
 
+" search
+set ignorecase
+set incsearch
+set nohlsearch
+set smartcase
+
+" backup
+set nobackup
+set noswapfile
+set nowritebackup
+
 " misc
 set undolevels=1000
 set autoread
@@ -45,15 +47,10 @@ set hidden
 set history=1000
 set clipboard+=unnamedplus
 
-" search
-set ignorecase
-set incsearch
-set nohlsearch
-set smartcase
-
 " ui
 let mapleader = ' '
-set foldcolumn=2
+" set foldcolumn=2
+set number
 set scrolloff=5
 set splitbelow
 set background=dark
@@ -69,15 +66,9 @@ set ttyfast
 set t_vb=
 set wildmenu
 
-" backup
-set nobackup
-set noswapfile
-set nowritebackup
-
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    " set termguicolors
 endif
 
 inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
@@ -95,9 +86,13 @@ autocmd BufEnter * silent! normal! g`"
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,Guardfile set filetype=ruby
 autocmd VimEnter * WildignoreFromGitignore
 
-highlight CursorLine cterm=None ctermbg=235 guibg=#181818
-highlight FoldColumn ctermbg=235 guibg=#181818
+" colorscheme ron
+
 highlight ExtraWhitespace ctermbg=red guibg=red
+highlight CursorLine cterm=None ctermbg=236 guibg=#333333
+highlight LineNr ctermfg=239 guifg=#454545
+highlight CursorLineNR ctermfg=243 guifg=#666666
+" highlight FoldColumn ctermbg=235 guibg=#181818
 
 match ExtraWhitespace /\s\+\%#\@<!$/
 
@@ -126,4 +121,14 @@ let g:netrw_winsize = 20
 let g:netrw_liststyle=3
 let g:netrw_banner = 0
 let g:netrw_altv = 1
+
+" ctrlp (F5 to clear cache)
+let g:ctrlp_mruf_exclude = '.*/tmp/.*\|.*/.git/.*'
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_max_files = 200000
+let g:ctrlp_mruf_relative = 1
+" let g:ctrlp_compare_lim = 0
+
+" lexima
+let g:lexima_enable_endwise_rules = 1
 
