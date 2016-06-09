@@ -43,6 +43,7 @@ set backspace=2
 set encoding=utf-8
 set hidden
 set history=1000
+set clipboard+=unnamedplus
 
 " search
 set ignorecase
@@ -53,7 +54,6 @@ set smartcase
 " ui
 let mapleader = ' '
 set foldcolumn=2
-" set number
 set scrolloff=5
 set splitbelow
 set background=dark
@@ -75,9 +75,9 @@ set noswapfile
 set nowritebackup
 
 if has('nvim')
-    set clipboard+=unnamedplus
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    " set termguicolors
 endif
 
 inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
@@ -95,8 +95,8 @@ autocmd BufEnter * silent! normal! g`"
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,Guardfile set filetype=ruby
 autocmd VimEnter * WildignoreFromGitignore
 
-highlight CursorLine cterm=None ctermbg=235 guibg=#242424
-highlight FoldColumn ctermbg=235 guibg=#242424
+highlight CursorLine cterm=None ctermbg=235 guibg=#181818
+highlight FoldColumn ctermbg=235 guibg=#181818
 highlight ExtraWhitespace ctermbg=red guibg=red
 
 match ExtraWhitespace /\s\+\%#\@<!$/
@@ -126,10 +126,4 @@ let g:netrw_winsize = 20
 let g:netrw_liststyle=3
 let g:netrw_banner = 0
 let g:netrw_altv = 1
-
-" disabled
-
-" nnoremap <Leader>j :b#<CR>
-" nnoremap <Leader>s :ls<CR>:b<Space>
-" nnoremap <Leader>p :set paste!<CR>
 
