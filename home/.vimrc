@@ -57,7 +57,7 @@ set undolevels=1000
 set history=1000
 set clipboard+=unnamedplus
 
-" usage
+" behavior
 let mapleader = ' '
 set backspace=2
 set scrolloff=5

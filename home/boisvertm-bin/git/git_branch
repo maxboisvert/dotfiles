@@ -2,12 +2,9 @@
 
 set -e
 
-CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
-LAST_TAG=`git describe --abbrev=0 --tags`
+git_status
 
-{
-git rev-parse --verify $CURRENT_BRANCH
-git rev-parse --verify $LAST_TAG
-} > /dev/null
+git fetch origin master
+git checkout origin/master
+git checkout -b mb-$1
 
-git checkout -b $LAST_TAG-$CURRENT_BRANCH-$(id -u -n)-$(date -I)
