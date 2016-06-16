@@ -10,6 +10,9 @@ Plugin 'cohama/lexima.vim'
 Plugin 'vim-scripts/gitignore'
 call vundle#end()
 
+" TODO
+" check compiled with for options categories
+
 " best vimrc
 filetype plugin indent on
 syntax on
@@ -38,40 +41,50 @@ set nobackup
 set noswapfile
 set nowritebackup
 
-" misc
-set undolevels=1000
+" statusline
+set laststatus=2
+set ruler
+set showmode
+set wildmenu
+
+" buffer
 set autoread
-set backspace=2
-set encoding=utf-8
 set hidden
+set encoding=utf-8
+
+" state
+set undolevels=1000
 set history=1000
 set clipboard+=unnamedplus
 
-" ui
+" usage
 let mapleader = ' '
-" set foldcolumn=2
-set number
+set backspace=2
 set scrolloff=5
 set splitbelow
-set background=dark
 set completeopt=
-set laststatus=2
-set lazyredraw
 set mouse=a
-set ruler
-set showmode
-set visualbell
+
+" theme
+set number
+set background=dark
 set cursorline
+
+" faster display
+set lazyredraw
 set ttyfast
+
+" bell
+set visualbell
 set t_vb=
-set wildmenu
 
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-inoremap <expr> <Tab> strpart(getline('.'), col('.') - 2, 1) =~ '\w' ? "\<C-P>" : "\<Tab>"
+" mappings
+inoremap <expr> <Tab> TabComplete()
 map <Enter> :
 nnoremap <Leader>c :bufdo bd<CR>
 nnoremap <Leader>p :CtrlPMRUFiles<CR>
@@ -86,17 +99,15 @@ autocmd BufEnter * silent! normal! g`"
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,Guardfile set filetype=ruby
 autocmd VimEnter * WildignoreFromGitignore
 
+" colors
 " colorscheme ron
-
 highlight ExtraWhitespace ctermbg=red guibg=red
 highlight CursorLine cterm=None ctermbg=236 guibg=#333333
 highlight LineNr ctermfg=239 guifg=#454545
 highlight CursorLineNR ctermfg=243 guifg=#666666
-" highlight FoldColumn ctermbg=235 guibg=#181818
-
 match ExtraWhitespace /\s\+\%#\@<!$/
 
-" Tags
+" tags
 let dirhash=system('pwd | md5 | xargs echo -n')
 let tagsfile="/tmp/.vim-tags-" . dirhash
 let &tags=tagsfile
@@ -131,4 +142,45 @@ let g:ctrlp_mruf_relative = 1
 
 " lexima
 let g:lexima_enable_endwise_rules = 1
+
+fun! TabComplete()
+    if strpart(getline('.'), col('.') - 2, 1) =~ '\w'
+        return "\<C-P>"
+    else
+        return "\<Tab>"
+    endif
+endfun
+
+" autocmd InsertCharPre * call AutoComplete()
+" aaaaa1
+" aaaaa2
+"
+
+fun! AutoComplete()
+    if !exists("s:initAutoComplete")
+        let s:initAutoComplete = 1
+        let s:wordLength = 0
+        let s:lastColumn = -1
+        let s:lastLine = -1
+    endif
+
+    if pumvisible()
+        return ""
+    endif
+
+    if s:wordLength > 0
+        let s:wordLength = 0
+        call feedkeys("\<C-P>\<C-N>\<C-N>")
+        return ""
+    endif
+
+    if v:char =~ '\w' && s:lastColumn + 1 == col('.') && getline('.') == s:lastLine
+        let s:wordLength += 1
+    else
+        let s:wordLength = 0
+    endif
+
+    let s:lastColumn = col('.')
+    let s:lastLine = getline('.')
+endfun
 
