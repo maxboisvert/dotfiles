@@ -8,3 +8,5 @@ git fetch origin master
 git checkout origin/master
 git checkout -b mb-$1
 
+git branch
+

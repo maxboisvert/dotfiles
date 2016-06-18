@@ -10,9 +10,6 @@ Plugin 'cohama/lexima.vim'
 Plugin 'vim-scripts/gitignore'
 call vundle#end()
 
-" TODO
-" check compiled with for options categories
-
 " best vimrc
 filetype plugin indent on
 syntax on
@@ -85,19 +82,23 @@ endif
 
 " mappings
 inoremap <expr> <Tab> TabComplete()
-map <Enter> :
-nnoremap <Leader>c :bufdo bd<CR>
+map <expr> <Enter> &filetype == "qf" ? "\<CR>" : ":"
+noremap <Leader>c :bufdo bd<CR>
 nnoremap <Leader>p :CtrlPMRUFiles<CR>
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap <Leader>t :split term://bash<CR>
+nnoremap <Leader>f :vimgrep // **/*<Left><Left><Left><Left><Left><Left>
+nnoremap <Leader>d :vimgrep // %<Left><Left><Left>
 
 " autocmd
+autocmd filetype go setl noexpandtab
 autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufEnter * silent! normal! g`"
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,Guardfile set filetype=ruby
 autocmd VimEnter * WildignoreFromGitignore
+autocmd InsertCharPre * call AutoComplete()
 
 " colors
 " colorscheme ron
@@ -113,10 +114,11 @@ let tagsfile="/tmp/.vim-tags-" . dirhash
 let &tags=tagsfile
 command Tags execute ':!ctags -R --exclude=*/vendor/* --exclude=*/node_modules/* --exclude=*.js -f ' . tagsfile
 
+" dev
+command DevTest :term dev test %
+
 " rails
-command Rspec :term bundle exec rspec --fail-fast --format progress
-command RspecCurrentFile :term bundle exec rspec --fail-fast --format progress %
-command Rubocup :term bundle exec rubocop
+command Rspec :term bundle exec rspec --fail-fast --format progress %
 
 " git
 command GitStatus :term git status
@@ -144,6 +146,10 @@ let g:ctrlp_mruf_relative = 1
 let g:lexima_enable_endwise_rules = 1
 
 fun! TabComplete()
+    if pumvisible()
+        return "\<C-N>"
+    endif
+
     if strpart(getline('.'), col('.') - 2, 1) =~ '\w'
         return "\<C-P>"
     else
@@ -151,36 +157,34 @@ fun! TabComplete()
     endif
 endfun
 
-" autocmd InsertCharPre * call AutoComplete()
-" aaaaa1
-" aaaaa2
-"
-
 fun! AutoComplete()
+    if pumvisible()
+        return ""
+    endif
+
     if !exists("s:initAutoComplete")
         let s:initAutoComplete = 1
+        set completeopt=menu,menuone
+        inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+        inoremap <expr> <Space> pumvisible() ? "\<C-Y>\<Space>" : "\<Space>"
+
         let s:wordLength = 0
         let s:lastColumn = -1
         let s:lastLine = -1
     endif
 
-    if pumvisible()
-        return ""
-    endif
-
-    if s:wordLength > 0
-        let s:wordLength = 0
-        call feedkeys("\<C-P>\<C-N>\<C-N>")
-        return ""
-    endif
-
-    if v:char =~ '\w' && s:lastColumn + 1 == col('.') && getline('.') == s:lastLine
+    if v:char =~ '\w' && s:lastColumn + 1 == col('.') && line('.') == s:lastLine
         let s:wordLength += 1
     else
         let s:wordLength = 0
     endif
 
     let s:lastColumn = col('.')
-    let s:lastLine = getline('.')
+    let s:lastLine = line('.')
+
+    if s:wordLength > 2
+        let s:wordLength = 0
+        call feedkeys("\<C-P>\<C-N>")
+    endif
 endfun
 
