@@ -77,7 +77,7 @@ set t_vb=
 
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
 " mappings
@@ -98,7 +98,7 @@ autocmd filetype java,python,vim,sh setl shiftwidth=4 tabstop=4 softtabstop=4
 autocmd BufEnter * silent! normal! g`"
 autocmd BufNewFile,BufRead Gemfile,Vagrantfile,Guardfile set filetype=ruby
 autocmd VimEnter * WildignoreFromGitignore
-autocmd InsertCharPre * call AutoComplete()
+" autocmd InsertCharPre * call AutoComplete()
 
 " colors
 " colorscheme ron

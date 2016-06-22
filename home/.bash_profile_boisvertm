@@ -18,49 +18,47 @@ function maven3 {
 	prependToPath $M2_HOME/bin
 }
 
+function go_lang {
+    export GOPATH=$HOME/Development/Go
+    export GOROOT=/usr/local/opt/go/libexec
+    prependToPath $GOPATH/bin
+    prependToPath $GOROOT/bin
+    docker_config
+}
+
+function fzf_config {
+    # https://github.com/junegunn/fzf
+    # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    export FZF_DEFAULT_COMMAND='ag -g ""'
+}
+
+function vim_as_editor {
+    alias vim=nvim
+
+    export VISUAL="vim"
+    export EDITOR="$VISUAL"
+    export SVN_EDITOR="$VISUAL"
+    export GIT_EDITOR="$VISUAL"
+}
+
+function docker_config {
+    eval "$(docker-machine env default)"
+}
+
 # java8
 # maven3
+# go_lang
+vim_as_editor
 
 export PAGER=less
-
-export VISUAL="vim"
-export EDITOR="$VISUAL"
-export SVN_EDITOR="$VISUAL"
-export GIT_EDITOR="$VISUAL"
+export SHELL_SESSION_HISTORY=0
+export PROMPT_COMMAND='echo -ne "\033]0; ${PWD##*/} \007"'
 
 HISTSIZE=10000
 
 prependToPath $(ls -d ~/boisvertm-bin/* | tr '\n' ':')
 
-# https://github.com/junegunn/fzf
-# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export FZF_DEFAULT_COMMAND='ag -g ""'
-
 bind 'set bell-style none'
 
-# aliases
-
-alias ura='gfop && bundle install && bundle exec rake db:migrate db:test:prepare'
-
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../../'
-
-alias vim=nvim
-
-export PROMPT_COMMAND='echo -ne "\033]0; ${PWD##*/} \007"'
-
 source ~/.git-completion.bash
-
-DEV=Development
-
-export GOPATH=$HOME/Development/Go
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
-
-# Docker
-alias docker_env="eval \"$(docker-machine env default)\""
-
-docker_env
 
