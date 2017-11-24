@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+touch .nojekyll
+
+git push origin +master:gh-pages

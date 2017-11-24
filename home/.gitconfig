@@ -1,0 +1,11 @@
+[user]
+	name = Maxime Boisvert
+	email = maxime.boisvert@shopify.com
+[rerere]
+	enabled = 1
+[push]
+	default = current
+[core]
+	excludesfile = /Users/maximeboisvert/.gitignore_global
+[pull]
+	default = current

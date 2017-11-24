@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+find . -size +4M | xargs jpegoptim --max=90
+

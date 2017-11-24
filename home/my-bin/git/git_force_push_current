@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+git_status
+
+CURRENT_BRANCH=`git_current_branch`
+
+if [ "$CURRENT_BRANCH" == "master" ]; then
+    echo "Force push on master is not available"
+    exit 1
+fi
+
+git push origin +$CURRENT_BRANCH

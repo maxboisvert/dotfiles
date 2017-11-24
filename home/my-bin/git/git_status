@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+git status
+
+if [ -z "$(git status --porcelain)" ]; then
+    # Working directory clean
+    exit 0
+else
+    exit 1
+fi

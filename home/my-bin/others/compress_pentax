@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+PENTAX=/Volumes/Lexar/pentax
+OUTPUT=~/Cloud/Pictures/DCIM_compressed/
+
+rsync -aP --ignore-existing $PENTAX/DCIM/ $OUTPUT
+
+find $OUTPUT -size +4M | xargs jpegoptim --max=90

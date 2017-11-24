@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Sum of the first column
+
+awk '{total = total + $1}END{print total}'

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+git_status
+
+BRANCH=$1
+
+git fetch origin $BRANCH
+git checkout $BRANCH

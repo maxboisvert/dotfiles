@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+HEROKU_ORGANIZATION=shopify heroku login --sso
+

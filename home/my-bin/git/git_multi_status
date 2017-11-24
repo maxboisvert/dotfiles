@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+DIR=`pwd`
+
+for gitdir in `find $DIR -name .git`;
+do
+    cd $gitdir
+    cd ..
+
+    echo '----------------------------------------'
+    echo "git status : $(basename `pwd`)"
+    pwd
+    git fetch origin master
+    echo ''
+
+    git status
+done

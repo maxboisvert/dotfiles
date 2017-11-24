@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Monitor files open files
+
+while true; do 
+	OUT=`lsof +D $1 | awk '{print $9}' | sort | uniq -c `;
+
+	clear;
+	echo "$OUT";
+done;

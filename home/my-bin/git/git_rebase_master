@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+git_status
+
+git fetch origin master
+git rebase -i origin/master

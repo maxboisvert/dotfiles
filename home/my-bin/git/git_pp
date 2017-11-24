@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+CURRENT_BRANCH=`git_current_branch`
+
+echo "CURRENT_BRANCH: $CURRENT_BRANCH"
+
+git pull origin $CURRENT_BRANCH
+git push origin $CURRENT_BRANCH --follow-tags

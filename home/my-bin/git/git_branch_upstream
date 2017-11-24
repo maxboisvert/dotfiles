@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+git_status
+
+BRANCH=`git_safe_name "$@"`
+
+git fetch upstream master
+git checkout upstream/master
+git checkout -b $BRANCH

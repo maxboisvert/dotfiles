@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+safe_name = ARGV.join(' ')
+safe_name = safe_name.gsub(/\W+/, ' ')
+safe_name = safe_name.strip
+safe_name = safe_name.gsub(' ', '-')
+safe_name = safe_name.downcase
+
+puts safe_name

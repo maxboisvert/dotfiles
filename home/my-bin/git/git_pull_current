@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git_status
+
+CURRENT_BRANCH=`git_current_branch`
+
+git pull origin $CURRENT_BRANCH

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+git_status
+
+git checkout `git branch | tr -d " *" | fzf`
