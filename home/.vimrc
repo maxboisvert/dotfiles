@@ -13,18 +13,14 @@ call plug#end()
 " Autocommands
 augroup vimrc
     autocmd!
-
-    autocmd ColorScheme * highlight LineNr ctermfg=darkgray
-    autocmd ColorScheme * highlight! link NonText LineNr
-    autocmd ColorScheme * highlight CursorLine cterm=NONE
-
     autocmd BufEnter * match Error /\s\+\%#\@<!$/
     autocmd BufNewFile,BufRead Gemfile,Guardfile set filetype=ruby
-    autocmd FileType go setlocal noexpandtab
-    autocmd FileType java,python,vim,sh,go,typescript setlocal shiftwidth=4 tabstop=4 softtabstop=4
     autocmd BufReadPost * silent! normal! g`"
-
+    autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE
+    autocmd FileType go setlocal noexpandtab
+    autocmd FileType java,python,vim,sh,go,typescript setl shiftwidth=4 softtabstop=4 tabstop=4
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    autocmd VimResized * wincmd =
 augroup END
 
 runtime! plugin/sensible.vim
@@ -36,12 +32,9 @@ scriptencoding utf-8
 
 " indent
 set expandtab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
+set shiftwidth=2 softtabstop=2 tabstop=2
 
 " wrap
-let &showbreak='↳ '
 set breakindent
 set linebreak
 set wrap
@@ -76,6 +69,7 @@ nnoremap <Leader>[ :let @+ = expand("%")<CR>
 noremap ; :
 nnoremap <Leader>g :GoDef<CR>
 nnoremap <Leader>] :wincmd w<CR>
+nnoremap <Backspace> <C-O>
 
 " fzf/ag
 command! -bang -nargs=* Ag2 call fzf#vim#ag(<q-args>, $AG_IGNORE, <bang>0)
@@ -83,7 +77,7 @@ let &grepprg = 'ag --vimgrep'
 nnoremap <Leader>a :Ag2<CR>
 nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>h :History<CR>
-nnoremap <Backspace> <C-O>
+nnoremap <Leader>l :Lines<CR>
 
 " nerdtree
 nnoremap <Leader>\ :NERDTreeToggle<CR>
