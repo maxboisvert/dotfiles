@@ -2,5 +2,10 @@
 
 set -e
 
+if [ "$(git status | grep rebase)" ]; then
+    echo "Can't amend during rebase"
+    exit 1
+fi
+
 git add -A
 git commit --amend

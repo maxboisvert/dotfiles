@@ -19,8 +19,7 @@ augroup vimrc
     autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE
     autocmd FileType go setlocal noexpandtab
     autocmd FileType java,python,vim,sh,go,typescript setl shiftwidth=4 softtabstop=4 tabstop=4
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-    autocmd VimResized * wincmd =
+    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
 runtime! plugin/sensible.vim
@@ -55,6 +54,7 @@ set laststatus=0
 
 " state
 set clipboard^=unnamedplus,unnamed
+" set directory=/dev/shm
 set undolevels=1000
 set hidden
 exec "set viminfo+=" . (has("nvim") ? "n.vim-nviminfo" : "n.vim-viminfo")
@@ -82,3 +82,6 @@ nnoremap <Leader>l :Lines<CR>
 " nerdtree
 nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>v :NERDTreeFind<CR>
+
+vnoremap < <gv
+vnoremap > >gv
