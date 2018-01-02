@@ -1,13 +1,13 @@
 call plug#begin()
-" Plug 'leafgarland/typescript-vim'
-" Plug 'posva/vim-vue'
-Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'vim-scripts/gitignore'
+Plug 'tpope/vim-vinegar'
+Plug $VIM_DEV . 'maxboisvert/vim-simple-bookmarks'
+Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
 call plug#end()
 
 " Autocommands
@@ -28,60 +28,38 @@ runtime! plugin/sensible.vim
 colorscheme default
 let g:mapleader = ' '
 scriptencoding utf-8
+let g:is_bash = 1
 
-" indent
+" indent/wrap
 set expandtab
 set shiftwidth=2 softtabstop=2 tabstop=2
-
-" wrap
-set breakindent
-set linebreak
-set wrap
-
-" search
-set hlsearch
-set ignorecase
-set smartcase
-set incsearch
+set breakindent linebreak wrap
 
 " ui
 set background=dark
 set number
-set showmode
 set cursorline
 set mouse=a
 set laststatus=0
+set grepprg=ag\ --vimgrep
 
 " state
 set clipboard^=unnamedplus,unnamed
-" set directory=/dev/shm
-set undolevels=1000
 set hidden
 exec "set viminfo+=" . (has("nvim") ? "n.vim-nviminfo" : "n.vim-viminfo")
 
 " Mappings
+nnoremap ; q:<Up>
+nnoremap <Backspace> <C-O>
+nnoremap <Leader>/ :BLines<CR>
+nnoremap <Leader>a :Find<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>g :GoDef<CR>
+nnoremap <Leader>h :History<CR>
+nnoremap <Leader>b :Buffers<CR>
 nnoremap j gj
 nnoremap k gk
 
-map <Leader>/ gcc
-map <Leader><Tab> :b#<CR>
-nnoremap <Leader>[ :let @+ = expand("%")<CR>
-noremap ; :
-nnoremap <Leader>g :GoDef<CR>
-nnoremap <Leader>] :wincmd w<CR>
-nnoremap <Backspace> <C-O>
-
-" fzf/ag
-command! -bang -nargs=* Ag2 call fzf#vim#ag(<q-args>, $AG_IGNORE, <bang>0)
-let &grepprg = 'ag --vimgrep'
-nnoremap <Leader>a :Ag2<CR>
-nnoremap <Leader>f :FZF<CR>
-nnoremap <Leader>h :History<CR>
-nnoremap <Leader>l :Lines<CR>
-
-" nerdtree
-nnoremap <Leader>\ :NERDTreeToggle<CR>
-nnoremap <Leader>v :NERDTreeFind<CR>
-
-vnoremap < <gv
-vnoremap > >gv
+" Commands
+command FileToClipboard let @+ = expand("%")
+command! -bang -nargs=* Find call fzf#vim#ag(<q-args>, $AG_IGNORE, <bang>0)

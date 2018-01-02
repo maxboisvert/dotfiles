@@ -1,4 +1,4 @@
 #!/bin/bash
 
-git add -A
+git add --patch
 git commit
