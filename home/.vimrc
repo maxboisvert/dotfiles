@@ -19,6 +19,7 @@ augroup vimrc
     autocmd FileType java,python,vim,sh,go,typescript setl shiftwidth=4 softtabstop=4 tabstop=4
     autocmd VimLeavePre * mksession! .vim-session
     autocmd VimResized * wincmd =
+    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
 runtime! plugin/sensible.vim
