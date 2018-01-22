@@ -28,7 +28,6 @@ runtime! plugin/sensible.vim
 colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
-scriptencoding utf-8
 
 " indent/wrap
 set expandtab
@@ -44,18 +43,21 @@ set laststatus=0
 set grepprg=ag\ --vimgrep
 
 " state
-exec "set viminfo+=" . (has("nvim") ? "n.vim-nviminfo" : "n.vim-viminfo")
+exec 'set viminfo+=' . (has('nvim') ? 'n.vim-nviminfo' : 'n.vim-viminfo')
 set clipboard^=unnamedplus,unnamed
-set confirm
 set hidden
 
 " Mappings
 nnoremap ; q:<Up>
 nnoremap <Backspace> <C-O>
 nnoremap <Leader><Tab> :b#<CR>
+nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>g :GoDef<CR>
-nnoremap <Leader>q :qa<CR>
+nnoremap <Leader>q :confirm qa<CR>
 nnoremap <Leader>s :source .vim-session<CR>
+
+nnoremap j gj
+nnoremap k gk
 
 nnoremap <Leader>/ :BLines<CR>
 nnoremap <Leader>a :Find<CR>
@@ -64,9 +66,6 @@ nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>l :Lines<CR>
 nnoremap <Leader>w :Windows<CR>
-
-nnoremap j gj
-nnoremap k gk
 
 " Commands
 command FileToClipboard let @+ = expand("%")
