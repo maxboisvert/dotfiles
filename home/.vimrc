@@ -6,6 +6,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'vim-scripts/gitignore'
+Plug 'ap/vim-buftabline'
+" Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " Autocommands
@@ -18,7 +20,8 @@ augroup vimrc
     autocmd FileType go setlocal noexpandtab
     autocmd FileType java,python,vim,sh,go,typescript setl shiftwidth=4 softtabstop=4 tabstop=4
     autocmd VimLeavePre * mksession! .vim-session
-    autocmd VimResized * wincmd =
+    autocmd VimEnter * nested silent! source .vim-session
+    " autocmd VimResized * wincmd =
     autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
@@ -39,7 +42,7 @@ set background=dark
 set number
 set cursorline
 set mouse=a
-set laststatus=0
+set laststatus=1
 set grepprg=ag\ --vimgrep
 
 " state
@@ -48,25 +51,29 @@ set clipboard^=unnamedplus,unnamed
 set hidden
 
 " Mappings
-nnoremap ; q:<Up>
+nnoremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader><Tab> :b#<CR>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>g :GoDef<CR>
-nnoremap <Leader>q :confirm qa<CR>
-nnoremap <Leader>s :source .vim-session<CR>
 
 nnoremap j gj
 nnoremap k gk
 
 nnoremap <Leader>/ :BLines<CR>
 nnoremap <Leader>a :Find<CR>
-nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>h :History<CR>
-nnoremap <Leader>l :Lines<CR>
 nnoremap <Leader>w :Windows<CR>
 
+nnoremap <Right> :bnext<CR>
+nnoremap <Left> :bprev<CR>
+nnoremap <Down> :bdelete<CR>
+
 " Commands
-command FileToClipboard let @+ = expand("%")
+command CopyFilename let @+ = expand("%")
 command! -bang -nargs=* Find call fzf#vim#ag(<q-args>, $AG_IGNORE, <bang>0)
+
+let g:buftabline_show = 1
+let g:buftabline_numbers = 2
+for i in range(1,9) | exec 'nmap <leader>' . i . ' <Plug>BufTabLine.Go(' . i . ')' | endfor

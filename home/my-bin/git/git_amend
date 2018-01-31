@@ -7,5 +7,5 @@ if [ "$(git status | grep rebase)" ]; then
     exit 1
 fi
 
-git add --patch
+git add -A
 git commit --amend
