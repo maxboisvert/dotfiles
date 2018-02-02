@@ -7,7 +7,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'vim-scripts/gitignore'
 Plug 'ap/vim-buftabline'
-" Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " Autocommands
@@ -19,10 +18,13 @@ augroup vimrc
     autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE
     autocmd FileType go setlocal noexpandtab
     autocmd FileType java,python,vim,sh,go,typescript setl shiftwidth=4 softtabstop=4 tabstop=4
-    autocmd VimLeavePre * mksession! .vim-session
-    autocmd VimEnter * nested silent! source .vim-session
     " autocmd VimResized * wincmd =
     autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+    if argc() == 0
+        autocmd VimLeavePre * mksession! .vim-session
+        autocmd VimEnter * nested silent! source .vim-session
+    endif
 augroup END
 
 runtime! plugin/sensible.vim
