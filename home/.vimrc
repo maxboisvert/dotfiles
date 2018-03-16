@@ -1,12 +1,13 @@
 call plug#begin()
 Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
+Plug 'maxboisvert/vim-simple-bookmarks'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'vim-scripts/gitignore'
-Plug 'ap/vim-buftabline'
+Plug 'yegappan/mru'
 call plug#end()
 
 " Autocommands
@@ -18,13 +19,7 @@ augroup vimrc
     autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE
     autocmd FileType go setlocal noexpandtab
     autocmd FileType java,python,vim,sh,go,typescript setl shiftwidth=4 softtabstop=4 tabstop=4
-    " autocmd VimResized * wincmd =
     autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-    if argc() == 0
-        autocmd VimLeavePre * mksession! .vim-session
-        autocmd VimEnter * nested silent! source .vim-session
-    endif
 augroup END
 
 runtime! plugin/sensible.vim
@@ -48,7 +43,6 @@ set laststatus=1
 set grepprg=ag\ --vimgrep
 
 " state
-exec 'set viminfo+=' . (has('nvim') ? 'n.vim-nviminfo' : 'n.vim-viminfo')
 set clipboard^=unnamedplus,unnamed
 set hidden
 
@@ -65,17 +59,13 @@ nnoremap k gk
 nnoremap <Leader>/ :BLines<CR>
 nnoremap <Leader>a :Find<CR>
 nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>h :History<CR>
-nnoremap <Leader>w :Windows<CR>
-
-nnoremap <Right> :bnext<CR>
-nnoremap <Left> :bprev<CR>
-nnoremap <Down> :bdelete<CR>
+nnoremap <Leader>h :MRU<CR>
 
 " Commands
 command CopyFilename let @+ = expand("%")
 command! -bang -nargs=* Find call fzf#vim#ag(<q-args>, $AG_IGNORE, <bang>0)
 
-let g:buftabline_show = 1
-let g:buftabline_numbers = 2
-for i in range(1,9) | exec 'nmap <leader>' . i . ' <Plug>BufTabLine.Go(' . i . ')' | endfor
+let g:MRU_File = ".vim-mru"
+let g:MRU_Auto_Close = 0
+let g:MRU_Window_Height = 5
+let MRU_Exclude_Files = "vim|git"
