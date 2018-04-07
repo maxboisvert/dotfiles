@@ -1,5 +1,7 @@
 call plug#begin()
 Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
+Plug $VIM_DEV . 'maxboisvert/vim-simple-mru'
+Plug $VIM_DEV . 'maxboisvert/vim-tab-send'
 Plug 'maxboisvert/vim-simple-bookmarks'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go'
@@ -7,7 +9,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'vim-scripts/gitignore'
-Plug 'yegappan/mru'
 call plug#end()
 
 " Autocommands
@@ -28,6 +29,7 @@ runtime! plugin/sensible.vim
 colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
+let g:vsm_exclude = 'NERD|COMMIT_\|git-\|/\.vim\|__'
 
 " indent/wrap
 set expandtab
@@ -59,13 +61,8 @@ nnoremap k gk
 nnoremap <Leader>/ :BLines<CR>
 nnoremap <Leader>a :Find<CR>
 nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>h :MRU<CR>
+nnoremap <Leader>h :SimpleMRU<CR>
 
 " Commands
 command CopyFilename let @+ = expand("%")
 command! -bang -nargs=* Find call fzf#vim#ag(<q-args>, $AG_IGNORE, <bang>0)
-
-let g:MRU_File = ".vim-mru"
-let g:MRU_Auto_Close = 0
-let g:MRU_Window_Height = 5
-let MRU_Exclude_Files = "vim|git"
