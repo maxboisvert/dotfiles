@@ -14,8 +14,8 @@ gcloud --project $PROJECT container clusters get-credentials $CLUSTER --zone $ZO
 
 NAMESPACE="$(kubectl get namespace | grep Active | awk '{print $1}' | fzf)"
 
-echo "k8s context: $PROJECT / $CLUSTER / $NAMESPACE"
-
 kubectl config set-context $(kubectl config current-context) --namespace=$NAMESPACE
 
 kubectl config get-contexts $(kubectl config current-context)
+
+echo "k8s context: $PROJECT / $CLUSTER / $NAMESPACE"
