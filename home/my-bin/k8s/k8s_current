@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+INFO="$(kubectl config get-contexts "$(kubectl config current-context)" | tail -n 1)"
+
+echo "Context: $(echo "$INFO" | awk '{print $3 " " $5}')"

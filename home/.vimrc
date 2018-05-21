@@ -11,14 +11,13 @@ call plug#end()
 
 augroup vimrc
     autocmd!
-    autocmd BufEnter * match Error /\s\+\%#\@<!$/
+    autocmd BufEnter * if (winnr("$") == 1 && &buftype != "") | q | endif
     autocmd BufNewFile,BufRead Gemfile,Guardfile set filetype=ruby
     autocmd BufReadPost * silent! normal! g`"
     autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE ctermbg=237
     autocmd FileType "go" setl noexpandtab
     autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
-    autocmd BufEnter * if (winnr("$") == 1 && &buftype != "") | q | endif
-    autocmd VimEnter * nested silent! if len(argv()) > 0 | set viminfo= | else | e #<1 | endif
+    autocmd VimEnter * nested silent! e #<1
 augroup END
 
 runtime! plugin/sensible.vim
@@ -40,11 +39,12 @@ set cursorline
 set mouse=a
 set laststatus=1
 set grepprg=ag\ --vimgrep
+set list listchars=tab:\ \ ,trail:·
 
 " state
 set clipboard^=unnamedplus,unnamed
 set hidden
-set viminfo+=n.vim-viminfo2
+if len(argv()) == 0 | set viminfo+=n.vim-viminfo2 | endif
 
 " Mappings
 noremap ; :
@@ -56,10 +56,10 @@ nnoremap <Leader>g :GoDef<CR>
 nnoremap j gj
 nnoremap k gk
 
+nnoremap <Down> :cclose<CR>
 nnoremap <Left> :cp<CR>
 nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
-nnoremap <Down> :cclose<CR>
 
 nnoremap <Leader>/ :BLines<CR>
 nnoremap <Leader>a :Find<CR>
