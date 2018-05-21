@@ -17,7 +17,7 @@ augroup vimrc
     autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE ctermbg=237
     autocmd FileType "go" setl noexpandtab
     autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
-    autocmd VimEnter * nested silent! e #<1
+    autocmd VimEnter * nested silent! exec "if !len(argv()) | e #<1 | endif"
 augroup END
 
 runtime! plugin/sensible.vim
@@ -44,7 +44,7 @@ set list listchars=tab:\ \ ,trail:·
 " state
 set clipboard^=unnamedplus,unnamed
 set hidden
-if len(argv()) == 0 | set viminfo+=n.vim-viminfo2 | endif
+if !len(argv()) | set viminfo+=n.vim-viminfo2 | endif
 
 " Mappings
 noremap ; :
