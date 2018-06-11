@@ -4,21 +4,21 @@ Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-sensible'
 Plug 'vim-scripts/gitignore'
 call plug#end()
 
-augroup vimrc
-    autocmd!
-    autocmd BufEnter * if (winnr("$") == 1 && &buftype != "") | q | endif
-    autocmd BufNewFile,BufRead Gemfile,Guardfile set filetype=ruby
-    autocmd BufReadPost * silent! normal! g`"
-    autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE ctermbg=237
-    autocmd FileType "go" setl noexpandtab
-    autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
-    autocmd VimEnter * nested silent! exec "if !len(argv()) | e #<1 | endif"
-augroup END
+augroup vimrc | autocmd! | augroup END
+autocmd vimrc BufEnter * if (winnr("$") == 1 && &buftype != "") | q | endif
+autocmd vimrc BufNewFile,BufRead Gemfile,Guardfile set filetype=ruby
+autocmd vimrc BufReadPost * silent! normal! g`"
+autocmd vimrc ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE ctermbg=237
+autocmd vimrc FileType "go" setl noexpandtab
+autocmd vimrc FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
+if !len(argv())
+    set viminfo+=n.vim-viminfo-local
+    autocmd vimrc VimEnter * nested silent! e #<1
+endif
 
 runtime! plugin/sensible.vim
 
@@ -44,14 +44,12 @@ set list listchars=tab:\ \ ,trail:·
 " state
 set clipboard^=unnamedplus,unnamed
 set hidden
-if !len(argv()) | set viminfo+=n.vim-viminfo2 | endif
 
 " Mappings
 noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>\ :NERDTreeToggle<CR>
 nnoremap <Leader>g :GoDef<CR>
-" inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "\<C-P>" : "\<Tab>"
 
 nnoremap j gj
 nnoremap k gk

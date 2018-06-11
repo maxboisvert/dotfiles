@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+POD=`kubectl get pod -l type=snapshot,component=elasticsearch | grep -v NAME | awk '{print $1}' | fzf`
+
+kubectl exec -it "$POD" -- /bin/sh --login
