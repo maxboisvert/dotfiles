@@ -90,6 +90,6 @@ vim_as_editor
 bash_completion
 my_bin
 long_history
-kube_config
+# kube_config
 go_lang
 # bottom_prompt
