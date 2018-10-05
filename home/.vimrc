@@ -4,6 +4,7 @@ Plug $VIM_DEV . 'maxboisvert/vim-simple-files'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-endwise'
 call plug#end()
 
 augroup vimrc
@@ -16,31 +17,32 @@ augroup END
 
 runtime! plugin/sensible.vim
 
-" Options
 colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
-let &grepprg="git grep -n"
+set grepprg=git_vimgrep
+" let &grepprg="git grep -n -- ':!/assets/'"
 
 set background=dark
 set breakindent linebreak wrap
 set clipboard^=unnamedplus,unnamed
 set cursorline
+set number
 set hidden
 set ignorecase smartcase
 set laststatus=1
 set list listchars=tab:\ \ ,trail:·
 set mouse=a
-set number
 set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 
-" Mappings
 noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
 inoremap {<CR> {<CR>}<ESC>O
-nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
+nnoremap <silent> <Leader>f :call SimpleFiles()<CR>/
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
+
+inoremap <expr> <CR> pumvisible() ? "\<Esc>a\<CR>" : "\<CR>"
 
 nnoremap j gj
 nnoremap k gk
