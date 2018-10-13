@@ -21,7 +21,6 @@ colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
 set grepprg=git_vimgrep
-" let &grepprg="git grep -n -- ':!/assets/'"
 
 set background=dark
 set breakindent linebreak wrap
@@ -39,10 +38,9 @@ noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
 inoremap {<CR> {<CR>}<ESC>O
-nnoremap <silent> <Leader>f :call SimpleFiles()<CR>/
+nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
+nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
-
-inoremap <expr> <CR> pumvisible() ? "\<Esc>a\<CR>" : "\<CR>"
 
 nnoremap j gj
 nnoremap k gk
