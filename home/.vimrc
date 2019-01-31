@@ -4,7 +4,7 @@ Plug $VIM_DEV . 'maxboisvert/vim-simple-files'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
-" Plug 'tpope/vim-endwise'
+Plug 'tmsvg/pear-tree'
 call plug#end()
 
 augroup vimrc
@@ -29,15 +29,14 @@ set cursorline
 set number
 set hidden
 set ignorecase smartcase
-set laststatus=1
 set list listchars=tab:\ \ ,trail:·
 set mouse=a
 set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+set lazyredraw
 
 noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
-inoremap {<CR> {<CR>}<ESC>O
 nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>

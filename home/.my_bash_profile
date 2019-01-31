@@ -22,9 +22,7 @@ function maven3 {
 
 function go_lang {
     export GOPATH=$HOME/Development/Go
-    export GOROOT=/usr/local/opt/go/libexec
     prepend_to_path $GOPATH/bin
-    prepend_to_path $GOROOT/bin
 }
 
 function bash_completion {

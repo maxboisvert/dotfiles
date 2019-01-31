@@ -9,3 +9,18 @@
 	excludesfile = /Users/maximeboisvert/.gitignore_global
 [pull]
 	default = current
+[diff]
+	algorithm = patience
+[url "galaxy::Shopify/"]
+	insteadOf = https://github.com/Shopify/
+	insteadOf = git@github.com:Shopify/
+[url "https://github.com/Shopify/"]
+	pushInsteadOf = https://github.com/Shopify/
+[url "git@github.com:Shopify/"]
+	pushInsteadOf = git@github.com:Shopify/
+[protocol]
+	version = 2
+[protocol "galaxy"]
+	allow = always
+[credential]
+	helper = osxkeychain
