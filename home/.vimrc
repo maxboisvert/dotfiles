@@ -5,6 +5,10 @@ Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'tmsvg/pear-tree'
+
+" Plug 'sheerun/vim-polyglot'
+" Plug 'tpope/vim-sleuth'
+Plug 'michaeljsmith/vim-indent-object'
 call plug#end()
 
 augroup vimrc

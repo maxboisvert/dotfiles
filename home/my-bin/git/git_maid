@@ -4,4 +4,4 @@ set -e
 
 rm -rf .git/refs/original/
 git reflog expire --all --expire=now
-git gc --auto --prune=now
+git gc --aggressive --prune=now
