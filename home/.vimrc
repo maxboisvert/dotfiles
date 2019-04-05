@@ -1,20 +1,19 @@
 call plug#begin()
 Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
 Plug $VIM_DEV . 'maxboisvert/vim-simple-files'
+Plug $VIM_DEV . 'maxboisvert/vim-tab-send'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'tmsvg/pear-tree'
 
-" Plug 'sheerun/vim-polyglot'
-" Plug 'tpope/vim-sleuth'
-Plug 'michaeljsmith/vim-indent-object'
+" Plug 'michaeljsmith/vim-indent-object'
 call plug#end()
 
 augroup vimrc
     autocmd!
     autocmd BufNewFile,BufRead Gemfile,Guardfile set filetype=ruby
-    autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE ctermbg=237
+    autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE ctermbg=238
     autocmd FileType "go" setl noexpandtab
     autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
 augroup END
@@ -41,9 +40,11 @@ set lazyredraw
 noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
+nnoremap <Leader>s :e ~/scratch.txt<CR>
 nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
+nnoremap <Leader>t :TabSend dev test %:@<CR>
 
 nnoremap j gj
 nnoremap k gk
