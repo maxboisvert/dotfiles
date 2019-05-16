@@ -1,13 +1,11 @@
 call plug#begin()
-Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
-Plug $VIM_DEV . 'maxboisvert/vim-simple-files'
-Plug $VIM_DEV . 'maxboisvert/vim-tab-send'
+Plug 'maxboisvert/vim-simple-complete'
+Plug 'maxboisvert/vim-simple-files'
+Plug 'maxboisvert/vim-tab-send'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'tmsvg/pear-tree'
-
-" Plug 'michaeljsmith/vim-indent-object'
 call plug#end()
 
 augroup vimrc
@@ -40,11 +38,14 @@ set lazyredraw
 noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
-nnoremap <Leader>s :e ~/scratch.txt<CR>
 nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
 nnoremap <Leader>t :TabSend dev test %:@<CR>
+
+autocmd BufRead *.scratch setl bufhidden=unload autowrite
+nnoremap <expr> <Leader>s ':e ~/scratch/' . strftime("%Y-%U") . '.scratch<CR>'
+nnoremap <Leader>d :vimgrep /\[[ p]\]/j ~/scratch/*<CR>
 
 nnoremap j gj
 nnoremap k gk

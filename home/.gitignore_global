@@ -39,3 +39,8 @@ Thumbs.db
 .vim-*
 
 .byebug*
+
+go.mod
+go.sum
+
+vendor
