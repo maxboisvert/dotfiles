@@ -7,13 +7,14 @@ INPUT=~/Cloud
 # DRY_RUN="--dry-run"
 
 function backup {
-    if [ -d "$2" ]; then
+    # if [ -d "$2" ]; then
         rsync $DRY_RUN -aP --delete-after --exclude ".*/" --exclude ".*" $1 $2 --verbose
-    fi
+    # fi
 }
 
 #rsync -aP --delete-after --exclude ".*/" --exclude ".*" ~/Cloud /Volumes/CloudDrive
 #rsync -aP --delete-after --exclude ".*/" --exclude ".*" ~/Cloud /Volumes/CloudBox
 
-backup $INPUT /Volumes/Cloud1
-backup $INPUT /Volumes/MFB1
+# backup $INPUT /Volumes/Cloud1
+# backup $INPUT /Volumes/MFB1
+backup /Volumes/Lexar/Cloud ~/Cloud-copy

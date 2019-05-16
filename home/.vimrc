@@ -1,13 +1,10 @@
 call plug#begin()
-Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
-Plug $VIM_DEV . 'maxboisvert/vim-simple-files'
-Plug $VIM_DEV . 'maxboisvert/vim-tab-send'
+Plug 'maxboisvert/vim-simple-complete'
+Plug 'maxboisvert/vim-simple-files'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'tmsvg/pear-tree'
-
-" Plug 'michaeljsmith/vim-indent-object'
 call plug#end()
 
 augroup vimrc
