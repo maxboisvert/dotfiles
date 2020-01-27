@@ -1,11 +1,11 @@
 call plug#begin()
 Plug 'maxboisvert/vim-simple-complete'
 Plug 'maxboisvert/vim-simple-files'
-Plug 'maxboisvert/vim-tab-send'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'tmsvg/pear-tree'
+Plug 'AndrewRadev/splitjoin.vim'
 call plug#end()
 
 augroup vimrc
@@ -21,8 +21,8 @@ runtime! plugin/sensible.vim
 colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
-set grepprg=git_vimgrep
 
+set grepprg=git_vimgrep
 set background=dark
 set breakindent linebreak wrap
 set clipboard^=unnamedplus,unnamed
@@ -41,11 +41,11 @@ nnoremap <Leader>g :GoDef<CR>
 nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
-nnoremap <Leader>t :TabSend dev test %:@<CR>
+" nnoremap <Leader>t :TabSend dev test %:@<CR>
 
-autocmd BufRead *.scratch setl bufhidden=unload autowrite
+autocmd BufRead *.scratch setl bufhidden=unload autowrite nobuflisted
 nnoremap <expr> <Leader>s ':e ~/scratch/' . strftime("%Y-%U") . '.scratch<CR>'
-nnoremap <Leader>d :vimgrep /\[[ p]\]/j ~/scratch/*<CR>
+nnoremap <Leader>d :vimgrep /\[[^x]\]/j ~/scratch/*<CR>
 
 nnoremap j gj
 nnoremap k gk
