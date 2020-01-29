@@ -1,3 +1,25 @@
 [user]
 	name = Maxime Boisvert
 	email = maxime.boisvert@shopify.com
+[rerere]
+	enabled = 1
+[push]
+	default = current
+[core]
+	excludesfile = /Users/maximeboisvert/.gitignore_global
+	commitGraph = true
+[pull]
+	default = current
+[diff]
+	algorithm = patience
+[protocol]
+	version = 2
+[credential]
+	helper = osxkeychain
+[url "https://github.com/Shopify/"]
+	insteadOf = git@github.com:Shopify/
+	insteadOf = git@github.com:shopify/
+	insteadOf = ssh://git@github.com/Shopify/
+	insteadOf = ssh://git@github.com/shopify/
+[gc]
+	writeCommitGraph = true
