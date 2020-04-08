@@ -6,7 +6,7 @@
 [push]
 	default = current
 [core]
-	excludesfile = /Users/maximeboisvert/.gitignore_global
+	excludesfile = /Users/max/.gitignore_global
 	commitGraph = true
 [pull]
 	default = current

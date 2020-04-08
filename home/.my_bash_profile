@@ -8,18 +8,6 @@ command_exists () {
     type "$1" &> /dev/null ;
 }
 
-function java8 {
-	export JAVA_HOME="~/Development/soft/jdk/jdk1.8"
-	prepend_to_path $JAVA_HOME/bin
-}
-
-function maven3 {
-	export MAVEN_OPTS="-Xmx3g"
-	export M2_HOME="~/Development/soft/apache-maven/apache-maven"
-	export M2_REPO="~/Development/soft/apache-maven-repository"
-	prepend_to_path $M2_HOME/bin
-}
-
 function go_lang {
     export GOPATH=$HOME/Development/Go
     prepend_to_path $GOPATH/bin
@@ -44,12 +32,6 @@ function vim_as_editor {
     export GIT_EDITOR="$VIM"
 }
 
-function kube_config {
-    if command_exists kubectl ; then
-        source <(kubectl completion bash)
-    fi
-}
-
 function my_bin {
     prepend_to_path $(ls -d ~/my-bin/* | tr '\n' ':')
 }
@@ -57,30 +39,16 @@ function my_bin {
 function long_history {
     export HISTFILESIZE=
     export HISTSIZE=
+    export HISTCONTROL=ignoreboth:erasedups
 }
 
 function no_bell {
     bind 'set bell-style none'
 }
 
-function github {
-    cd ~/Development/src/github.com
-}
-
-function bottom_prompt {
-    tput cup $LINES
-}
-
 alias k=kubectl
 
-export HISTCONTROL=ignoreboth:erasedups
 export VIM_DEV="~/Development/src/github.com/"
-
-# FZF, AG
-export AG_IGNORE='--ignore vendor --ignore node_modules --ignore images --ignore svg --ignore fonts --ignore git --ignore assets'
-export FZF_DEFAULT_COMMAND="ag $AG_IGNORE -g \"\""
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
 prepend_to_path $VIM_DEV/maxboisvert/vim-tab-send/bin
 
 no_bell
@@ -88,6 +56,4 @@ vim_as_editor
 bash_completion
 my_bin
 long_history
-# kube_config
 go_lang
-# bottom_prompt
