@@ -51,6 +51,8 @@ alias k=kubectl
 export VIM_DEV="~/Development/src/github.com/"
 prepend_to_path $VIM_DEV/maxboisvert/vim-tab-send/bin
 
+PS1='\W\$ '
+
 no_bell
 vim_as_editor
 bash_completion

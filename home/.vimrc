@@ -1,8 +1,8 @@
 call plug#begin()
-Plug 'maxboisvert/vim-simple-complete'
-Plug 'maxboisvert/vim-simple-files'
+" Plug 'maxboisvert/vim-simple-files'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tmsvg/pear-tree'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -14,6 +14,11 @@ augroup vimrc
     autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE ctermbg=238
     autocmd FileType "go" setl noexpandtab
     autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
+    autocmd BufReadPost * silent! normal! g`"
+    "    if !len(argv())
+        " set viminfo+=n.vim-viminfo-local
+        " autocmd VimEnter * nested silent! e #<1
+    " endif
 augroup END
 
 runtime! plugin/sensible.vim
@@ -21,8 +26,9 @@ runtime! plugin/sensible.vim
 colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
+let &grepprg="git grep -l -n '$*' -- ':!*/assets/*' ':!*/javascripts/*'"
 
-set grepprg=git_vimgrep
+set grepformat=%f
 set background=dark
 set breakindent linebreak wrap
 set clipboard^=unnamedplus,unnamed
@@ -41,7 +47,6 @@ nnoremap <Leader>g :GoDef<CR>
 nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
-" nnoremap <Leader>t :TabSend dev test %:@<CR>
 
 autocmd BufRead *.scratch setl bufhidden=unload autowrite nobuflisted
 nnoremap <expr> <Leader>s ':e ~/scratch/' . strftime("%Y-%U") . '.scratch<CR>'
@@ -54,3 +59,10 @@ nnoremap <Down> :cclose<CR>
 nnoremap <Left> :cp<CR>
 nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
+
+inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
+
+" set errorformat=%f
+" let temp = tempname()
+" command Files :call system("git ls-files --others --exclude-standard --cached > " . temp) | exec 'cf ' . temp | copen
+" nnoremap <Leader>f :Files
