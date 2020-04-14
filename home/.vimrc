@@ -1,4 +1,5 @@
 call plug#begin()
+Plug $VIM_DEV . 'maxboisvert/vim-simple-files'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
@@ -12,11 +13,6 @@ augroup vimrc
     autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=NONE ctermbg=238
     autocmd FileType "go" setl noexpandtab
     autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
-    autocmd BufReadPost * silent! normal! g`"
-    if !len(argv())
-        set viminfo+=n.vim-viminfo-local
-        autocmd VimEnter * nested silent! e #<1
-    endif
 augroup END
 
 runtime! plugin/sensible.vim
@@ -25,7 +21,7 @@ colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
 
-set grepprg=git_vimgrep
+let &grepprg='git grep -n "$*" -- ":!*/assets/*" ":!*/javascripts/*"'
 set background=dark
 set breakindent linebreak wrap
 set clipboard^=unnamedplus,unnamed
@@ -41,7 +37,7 @@ set lazyredraw
 noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
-nnoremap <silent> <Leader>f :grep '' ''
+nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
 
