@@ -1,8 +1,6 @@
 call plug#begin()
-" Plug 'maxboisvert/vim-simple-files'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tmsvg/pear-tree'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -15,10 +13,10 @@ augroup vimrc
     autocmd FileType "go" setl noexpandtab
     autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
     autocmd BufReadPost * silent! normal! g`"
-    "    if !len(argv())
-        " set viminfo+=n.vim-viminfo-local
-        " autocmd VimEnter * nested silent! e #<1
-    " endif
+    if !len(argv())
+        set viminfo+=n.vim-viminfo-local
+        autocmd VimEnter * nested silent! e #<1
+    endif
 augroup END
 
 runtime! plugin/sensible.vim
@@ -26,9 +24,8 @@ runtime! plugin/sensible.vim
 colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
-let &grepprg="git grep -l -n '$*' -- ':!*/assets/*' ':!*/javascripts/*'"
 
-set grepformat=%f
+set grepprg=git_vimgrep
 set background=dark
 set breakindent linebreak wrap
 set clipboard^=unnamedplus,unnamed
@@ -44,7 +41,7 @@ set lazyredraw
 noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
-nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
+nnoremap <silent> <Leader>f :grep '' ''
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
 
@@ -61,8 +58,3 @@ nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
 
 inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
-
-" set errorformat=%f
-" let temp = tempname()
-" command Files :call system("git ls-files --others --exclude-standard --cached > " . temp) | exec 'cf ' . temp | copen
-" nnoremap <Leader>f :Files
