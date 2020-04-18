@@ -1,5 +1,12 @@
+if !filereadable(expand("~/.vim/autoload/plug.vim"))
+    call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
+    exit
+endif
+
 call plug#begin()
 Plug $VIM_DEV . 'maxboisvert/vim-simple-files'
+Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
+Plug $VIM_DEV . 'maxboisvert/vim-simple-notes'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
@@ -37,13 +44,13 @@ set lazyredraw
 noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
-nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
-nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
 
-autocmd BufRead *.scratch setl bufhidden=unload autowrite nobuflisted
-nnoremap <expr> <Leader>s ':e ~/scratch/' . strftime("%Y-%U") . '.scratch<CR>'
-nnoremap <Leader>d :vimgrep /\[[^x]\]/j ~/scratch/*<CR>
+nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
+nnoremap <silent> <Leader>j :call SimpleMru()<CR>
+
+nnoremap <silent> <Leader>s :call Notes()<CR>
+nnoremap <silent> <Leader>d :call NotesOpen()<CR>
 
 nnoremap j gj
 nnoremap k gk
@@ -53,4 +60,4 @@ nnoremap <Left> :cp<CR>
 nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
 
-inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
+" inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
