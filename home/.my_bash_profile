@@ -21,6 +21,7 @@ function bash_completion {
 
 function vim_as_editor {
     VIM='vim'
+
     if command_exists nvim ; then
         VIM='nvim'
         alias vim=nvim

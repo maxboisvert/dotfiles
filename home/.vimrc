@@ -1,6 +1,11 @@
+
 if !filereadable(expand("~/.vim/autoload/plug.vim"))
-    call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
-    exit
+    exec '! curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+endif
+
+if has('nvim') && !filereadable(stdpath('config') .'/init.vim')
+    call mkdir(stdpath('config'), 'p')
+    exe '! ln -s '. expand("~/.init.vim") . ' ' . stdpath('config') .'/init.vim'
 endif
 
 call plug#begin()

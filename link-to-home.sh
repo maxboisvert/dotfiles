@@ -7,4 +7,3 @@ find `pwd`/home -maxdepth 1 -mindepth 1 | while read file
 do
 	ln -fs $file ~
 done
-
