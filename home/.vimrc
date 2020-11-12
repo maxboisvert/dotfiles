@@ -10,8 +10,8 @@ endif
 
 call plug#begin()
 Plug $VIM_DEV . 'maxboisvert/vim-simple-files'
-Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
-Plug $VIM_DEV . 'maxboisvert/vim-simple-notes'
+" Plug $VIM_DEV . 'maxboisvert/vim-simple-complete'
+" Plug $VIM_DEV . 'maxboisvert/vim-simple-notes'
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
@@ -33,7 +33,7 @@ colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
 
-let &grepprg='git grep -n "$*" -- ":!*/assets/*" ":!*/javascripts/*"'
+set grepprg=git_vimgrep
 set background=dark
 set breakindent linebreak wrap
 set clipboard^=unnamedplus,unnamed
@@ -54,8 +54,10 @@ nnoremap <Leader>[ :let @+ = expand("%")<CR>
 nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
 
-nnoremap <silent> <Leader>s :call Notes()<CR>
-nnoremap <silent> <Leader>d :call NotesOpen()<CR>
+" Simple notes
+nnoremap <silent> <Leader>s :exec ':e ~/scratch/' . strftime("%Y-%U") . '.scratch'<CR>
+nnoremap <silent> <Leader>d :vimgrep /^\[[^x]\{,1}\]/j ~/scratch/*<CR>
+nnoremap <silent> <Leader>t :let @+ = strftime('%F')<CR>
 
 nnoremap j gj
 nnoremap k gk
@@ -65,4 +67,4 @@ nnoremap <Left> :cp<CR>
 nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
 
-" inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
+inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"

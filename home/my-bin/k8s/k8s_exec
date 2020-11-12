@@ -2,6 +2,6 @@
 
 set -e
 
-POD=`kubectl get pod -l component=elasticsearch | grep -v NAME | awk '{print $1}' | fzf`
+POD=`kubectl get pod | grep -v NAME | awk '{print $1}' | fzf`
 
 kubectl exec -it "$POD" -- /bin/bash
