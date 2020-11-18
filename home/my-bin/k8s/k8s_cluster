@@ -2,7 +2,11 @@
 
 set -e
 
-PROJECT="$(gcloud projects list | grep -v PROJECT_ID | fzf | awk '{print $1}')"
+PROJECT="$1"
+
+if [ -z "$PROJECT" ] ; then
+    PROJECT="$(gcloud projects list | grep -v PROJECT_ID | fzf | awk '{print $1}')"
+fi
 
 CLUSTERS="$(gcloud --project "$PROJECT" container clusters list 2> /dev/null | grep RUNNING)"
 
