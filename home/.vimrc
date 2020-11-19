@@ -16,10 +16,6 @@ Plug 'tmsvg/pear-tree'
 Plug 'AndrewRadev/splitjoin.vim'
 call plug#end()
 
-let g:vsf_file = ".vim-vsf"
-" let g:vsf_file = tempname()
-let g:vsf_command = "git ls-files --others --exclude-standard --cached"
-
 augroup vimrc
     autocmd!
     autocmd BufNewFile,BufRead Gemfile,Guardfile set filetype=ruby
@@ -27,8 +23,7 @@ augroup vimrc
     autocmd FileType "go" setl noexpandtab
     autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
     autocmd BufReadPost * silent! normal! g`"
-
-    exec "autocmd BufRead " g:vsf_file . " :call BufferSettings()"
+    autocmd BufRead .vim-vsf :call BufferSettings()
 
     if !len(argv())
         set viminfo+=n.vim-viminfo-local
@@ -81,18 +76,20 @@ inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "
 
 " simple files
 func! SimpleFiles()
-    exec "edit! " . g:vsf_file
-    call system(g:vsf_command . " > " . g:vsf_file . " &")
+    edit! .vim-vsf
+    " file .files
+    call system("git ls-files --others --exclude-standard --cached > .vim-vsf &")
 endfunc
 
 func! BufferSettings()
-    setl buftype=nowrite nobuflisted bufhidden=hide noswapfile nomodifiable autoread
+    setl buftype=nofile nobuflisted bufhidden=delete
     map <buffer> <silent> <CR> gf
 endfunc
 
 fun! SimpleMru()
     wviminfo | rviminfo!
     enew
+    " file .mru
     0put =v:oldfiles
     silent exec '%s?' . getcwd() . '/??e'
     silent exec '%g/^[./]/d'
