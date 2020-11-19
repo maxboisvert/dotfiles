@@ -16,8 +16,9 @@ Plug 'tmsvg/pear-tree'
 Plug 'AndrewRadev/splitjoin.vim'
 call plug#end()
 
-let g:vsf_file = tempname()
-let g:vsf_command = get(g:, 'vsf_command', "git ls-files --others --exclude-standard --cached")
+let g:vsf_file = ".vim-vsf"
+" let g:vsf_file = tempname()
+let g:vsf_command = "git ls-files --others --exclude-standard --cached"
 
 augroup vimrc
     autocmd!
@@ -80,12 +81,12 @@ inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "
 
 " simple files
 func! SimpleFiles()
-    call system(g:vsf_command . " > " . g:vsf_file)
-    exec "e " . g:vsf_file
+    exec "edit! " . g:vsf_file
+    call system(g:vsf_command . " > " . g:vsf_file . " &")
 endfunc
 
 func! BufferSettings()
-    setl buftype=nowrite nobuflisted bufhidden=hide noswapfile nomodifiable
+    setl buftype=nowrite nobuflisted bufhidden=hide noswapfile nomodifiable autoread
     map <buffer> <silent> <CR> gf
 endfunc
 
@@ -93,7 +94,6 @@ fun! SimpleMru()
     wviminfo | rviminfo!
     enew
     0put =v:oldfiles
-    map <buffer> <silent> <CR> gf
     silent exec '%s?' . getcwd() . '/??e'
     silent exec '%g/^[./]/d'
     call BufferSettings()
