@@ -14,6 +14,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
 Plug 'tmsvg/pear-tree'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'lifepillar/vim-mucomplete'
 call plug#end()
 
 augroup vimrc
@@ -37,6 +38,10 @@ colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
 
+let g:mucomplete#chains = { 'default' : ['c-p'] }
+let g:mucomplete#enable_auto_at_startup = 1
+set completeopt+=menuone,noselect pumheight=10
+
 set grepprg=git_vimgrep
 set background=dark
 set breakindent linebreak wrap
@@ -54,6 +59,7 @@ noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
+nnoremap <silent> <Leader>s :exec ':e /tmp/' . strftime("%Y-%U") . '.scratch'<CR>
 
 nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
@@ -66,33 +72,24 @@ nnoremap <Left> :cp<CR>
 nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
 
-" Simple notes
-nnoremap <silent> <Leader>s :exec ':e ~/scratch/' . strftime("%Y-%U") . '.scratch'<CR>
-nnoremap <silent> <Leader>d :vimgrep /^\[[^x]\{,1}\]/j ~/scratch/*<CR>
-nnoremap <silent> <Leader>t :let @+ = strftime('%F')<CR>
-
-" tab complete
-inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
-
 " simple files
 func! SimpleFiles()
     edit! .vim-vsf
-    " file .files
     call system("git ls-files --others --exclude-standard --cached > .vim-vsf &")
 endfunc
 
 func! BufferSettings()
-    setl buftype=nofile nobuflisted bufhidden=delete
+    setl buftype=nofile nobuflisted bufhidden=hide
     map <buffer> <silent> <CR> gf
 endfunc
 
 fun! SimpleMru()
     wviminfo | rviminfo!
     enew
-    " file .mru
     0put =v:oldfiles
     silent exec '%s?' . getcwd() . '/??e'
     silent exec '%g/^[./]/d'
     call BufferSettings()
+    setl bufhidden=delete
     0
 endfunc
