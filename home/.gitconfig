@@ -10,6 +10,7 @@
 	commitGraph = true
 [pull]
 	default = current
+	ff = only
 [diff]
 	algorithm = patience
 [protocol]
