@@ -15,7 +15,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tmsvg/pear-tree'
 Plug 'AndrewRadev/splitjoin.vim'
 
-let dev = '/Users/maximeboisvert/src/github.com/'
+let dev = '/Users/max/src/github.com/'
 Plug dev . 'maxboisvert/vim-simple-complete'
 Plug dev . 'maxboisvert/vim-simple-files'
 
