@@ -12,18 +12,16 @@ call plug#begin()
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
-
 call plug#end()
 
 augroup vimrc
     autocmd!
     autocmd BufNewFile,BufRead Gemfile,Guardfile set filetype=ruby
-    autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=None ctermbg=238 | hi CursorLineNr cterm=None
     autocmd FileType "go" setl noexpandtab
     autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
-
     autocmd BufReadPost * silent! normal! g`"
-    exec "autocmd BufRead .vim-vsf :call BufferSettings()"
+    autocmd BufRead .vim-vsf :call BufferSettings()
+    autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=None ctermbg=238 | hi CursorLineNr cterm=None
 
     if !len(argv())
         set viminfo+=n.vim-viminfo-local
@@ -32,7 +30,6 @@ augroup vimrc
 augroup END
 
 runtime! plugin/sensible.vim
-
 colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
