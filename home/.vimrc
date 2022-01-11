@@ -1,13 +1,10 @@
 " First setup: alias vim=nvim and source this file within vim
-if !filereadable(expand("~/.vim/autoload/plug.vim"))
-    exec '! curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-endif
-
 if has('nvim') && !filereadable(stdpath('config') .'/init.vim')
-    call mkdir(stdpath('config'), 'p')
+    exe '! mkdir -p ' . stdpath('config')
     exe '! ln -s '. expand("~/.init.vim") . ' ' . stdpath('config') .'/init.vim'
 endif
 
+" https://github.com/junegunn/vim-plug#unix
 call plug#begin()
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
@@ -20,7 +17,6 @@ augroup vimrc
     autocmd FileType "go" setl noexpandtab
     autocmd FileType "java,python,vim,sh,go,typescript" setl shiftwidth=4 softtabstop=4 tabstop=4
     autocmd BufReadPost * silent! normal! g`"
-    autocmd BufRead .vim-vsf :call BufferSettings()
     autocmd ColorScheme * hi LineNr ctermfg=darkgray | hi CursorLine cterm=None ctermbg=238 | hi CursorLineNr cterm=None
 
     if !len(argv())
@@ -70,6 +66,7 @@ inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "
 func! SimpleFiles()
     edit! .vim-vsf
     call system("git ls-files --others --exclude-standard --cached > .vim-vsf &")
+    call BufferSettings()
 endfunc
 
 func! BufferSettings()
