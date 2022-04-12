@@ -43,6 +43,8 @@ set mouse=a
 set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 set lazyredraw
 
+set dir=/tmp/vim// backupdir=/tmp/vim// undodir=/tmp/vim//
+
 noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
