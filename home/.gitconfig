@@ -7,6 +7,7 @@
 	default = current
 [core]
 	excludesfile = ~/.gitignore_global
+	editor = nvim
 [pull]
 	default = current
 	ff = only

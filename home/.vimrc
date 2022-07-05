@@ -1,7 +1,7 @@
 " First setup: alias vim=nvim and source this file within vim
-if has('nvim') && !filereadable(stdpath('config') .'/init.vim')
+if !filereadable(stdpath('config') . '/init.vim')
     exe '! mkdir -p ' . stdpath('config')
-    exe '! ln -s '. expand("~/.init.vim") . ' ' . stdpath('config') .'/init.vim'
+    exe '! ln -s '. expand("~/.init.vim") . ' ' . stdpath('config') . '/init.vim'
 endif
 
 " https://github.com/junegunn/vim-plug#unix
@@ -9,6 +9,7 @@ call plug#begin()
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sensible'
+Plug 'folke/which-key.nvim'
 call plug#end()
 
 augroup vimrc
@@ -49,7 +50,7 @@ noremap ; :
 nnoremap <Backspace> <C-O>
 nnoremap <Leader>g :GoDef<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
-nnoremap <silent> <Leader>s :exec ':e /tmp/' . strftime("%Y-%U") . '.scratch'<CR>
+nnoremap <silent> <Leader>s :exec ':e ~/scratch/' . strftime("%Y-%U") . '.scratch'<CR>
 
 nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
 nnoremap <silent> <Leader>j :call SimpleMru()<CR>
@@ -63,6 +64,12 @@ nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
 
 inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
+
+lua << EOF
+    require("which-key").setup {
+        vim.api.nvim_set_option('timeoutlen', 500)
+    }
+EOF
 
 " Vim simple files
 func! SimpleFiles()
@@ -86,3 +93,14 @@ fun! SimpleMru()
     setl bufhidden=delete
     0
 endfunc
+
+
+" # try later
+" set autoindent
+" set copyindent
+" set preserveindent
+"
+" set shiftround
+"
+" to clear
+" set all&

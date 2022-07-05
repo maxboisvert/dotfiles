@@ -20,14 +20,10 @@ function bash_completion {
 }
 
 function vim_as_editor {
-    VIM='vim'
+    VIM='nvim'
+    alias vim=nvim
 
-    if command_exists nvim ; then
-        VIM='nvim'
-        alias vim=nvim
-    fi
-
-    export VISUAL=$VIM
+    export VISUAL="$VIM"
     export EDITOR="$VIM"
     export SVN_EDITOR="$VIM"
     export GIT_EDITOR="$VIM"
