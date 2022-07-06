@@ -6,17 +6,42 @@ endif
 
 lua << EOF
 require('packer').startup(function()
-    -- https://github.com/wbthomason/packer.nvim
-    use 'wbthomason/packer.nvim'
+    use 'wbthomason/packer.nvim' -- https://github.com/wbthomason/packer.nvim
     use 'fatih/vim-go'
     use 'tpope/vim-commentary'
     use 'tpope/vim-sensible'
-
     use {
       "folke/which-key.nvim",
       config = function() require("which-key").setup() end
     }
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = { {'nvim-lua/plenary.nvim'} }
+    }
+    use {
+        'hrsh7th/nvim-cmp',
+        requires = { {'hrsh7th/cmp-buffer'} }
+    }
 end)
+
+local cmp = require 'cmp'
+cmp.setup {
+    sources = cmp.config.sources {
+        {
+            name = 'buffer',
+            keyword_length = 3,
+            option = {
+                get_bufnrs = function()
+                    return vim.api.nvim_list_bufs()
+                end
+            }
+        },
+    },
+    mapping = {
+      ['<CR>'] = cmp.mapping.confirm({select = true}),
+    },
+    completion = { completeopt = 'menu,menuone,noinsert' }
+}
 EOF
 
 augroup vimrc
@@ -34,28 +59,40 @@ augroup vimrc
 augroup END
 
 lua << EOF
+vim.cmd('runtime! plugin/sensible.vim')
+vim.cmd('colorscheme default')
+
 vim.g.is_bash=1
 vim.g.mapleader=' '
 
-vim.cmd [[
-runtime! plugin/sensible.vim
-colorscheme default
+(function(set)
+	set.grepprg="git_vimgrep"
+	set.background="dark"
+	set.cursorline=true
+	set.number=true
+	set.clipboard="unnamedplus"
+	set.mouse="a"
+	set.lazyredraw=true
 
-set grepprg=git_vimgrep
-set background=dark
-set breakindent linebreak wrap
-set clipboard=unnamedplus
-set cursorline
-set number
-set hidden
-set ignorecase smartcase
-set list listchars=tab:\ \ ,trail:·
-set mouse=a
-set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
-set lazyredraw
-set dir=/tmp/vim// backupdir=/tmp/vim// undodir=/tmp/vim//
-" set autoindent copyindent preserveindent shiftround
-]]
+	set.ignorecase=true
+    set.smartcase=true
+
+    set.breakindent=true
+    set.linebreak=true
+	set.wrap=true
+
+    set.list=true
+    -- set.listchars='tab:\ \ ,trail:·'
+
+    set.shiftwidth=2
+	set.softtabstop=2
+	set.tabstop=2
+ 	set.expandtab=true
+
+    --set dir=/tmp/vim// backupdir=/tmp/vim// undodir=/tmp/vim//
+
+    -- set autoindent copyindent preserveindent shiftround
+end)(vim.opt)
 EOF
 
 noremap ; :
@@ -64,8 +101,8 @@ nnoremap <Leader>g :GoDef<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
 nnoremap <silent> <Leader>s :exec ':e ~/scratch/' . strftime("%Y-%U") . '.scratch'<CR>
 
-nnoremap <silent> <Leader>f :call SimpleFiles()<CR>
-nnoremap <silent> <Leader>j :call SimpleMru()<CR>
+nnoremap <silent> <Leader>f :Telescope find_files<CR>
+nnoremap <silent> <Leader>j :Telescope oldfiles<CR>
 
 nnoremap j gj
 nnoremap k gk
@@ -75,27 +112,4 @@ nnoremap <Left> :cp<CR>
 nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
 
-inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
-
-" Vim simple files
-func! SimpleFiles()
-    edit! .vim-vsf
-    call system("git ls-files --others --exclude-standard --cached > .vim-vsf &")
-    call BufferSettings()
-endfunc
-
-func! BufferSettings()
-    setl buftype=nofile nobuflisted bufhidden=hide
-    map <buffer> <silent> <CR> gf
-endfunc
-
-fun! SimpleMru()
-    wviminfo | rviminfo!
-    enew
-    0put =v:oldfiles
-    silent exec '%s?' . getcwd() . '/??e'
-    silent exec '%g/^[./]/d _'
-    call BufferSettings()
-    setl bufhidden=delete
-    0
-endfunc
+" inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
