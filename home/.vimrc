@@ -4,13 +4,20 @@ if !filereadable(stdpath('config') . '/init.vim')
     exe '! ln -s '. expand("~/.init.vim") . ' ' . stdpath('config') . '/init.vim'
 endif
 
-" https://github.com/junegunn/vim-plug#unix
-call plug#begin()
-Plug 'fatih/vim-go'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-sensible'
-Plug 'folke/which-key.nvim'
-call plug#end()
+lua << EOF
+require('packer').startup(function()
+    -- https://github.com/wbthomason/packer.nvim
+    use 'wbthomason/packer.nvim'
+    use 'fatih/vim-go'
+    use 'tpope/vim-commentary'
+    use 'tpope/vim-sensible'
+
+    use {
+      "folke/which-key.nvim",
+      config = function() require("which-key").setup() end
+    }
+end)
+EOF
 
 augroup vimrc
     autocmd!
@@ -26,10 +33,13 @@ augroup vimrc
     endif
 augroup END
 
+lua << EOF
+vim.g.is_bash=1
+vim.g.mapleader=' '
+
+vim.cmd [[
 runtime! plugin/sensible.vim
 colorscheme default
-let g:is_bash = 1
-let g:mapleader = ' '
 
 set grepprg=git_vimgrep
 set background=dark
@@ -43,8 +53,10 @@ set list listchars=tab:\ \ ,trail:·
 set mouse=a
 set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 set lazyredraw
-
 set dir=/tmp/vim// backupdir=/tmp/vim// undodir=/tmp/vim//
+" set autoindent copyindent preserveindent shiftround
+]]
+EOF
 
 noremap ; :
 nnoremap <Backspace> <C-O>
@@ -64,12 +76,6 @@ nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
 
 inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
-
-lua << EOF
-    require("which-key").setup {
-        vim.api.nvim_set_option('timeoutlen', 500)
-    }
-EOF
 
 " Vim simple files
 func! SimpleFiles()
@@ -93,14 +99,3 @@ fun! SimpleMru()
     setl bufhidden=delete
     0
 endfunc
-
-
-" # try later
-" set autoindent
-" set copyindent
-" set preserveindent
-"
-" set shiftround
-"
-" to clear
-" set all&
