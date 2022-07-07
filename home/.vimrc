@@ -51,41 +51,24 @@ augroup vimrc
     endif
 augroup END
 
-lua << EOF
-vim.cmd('runtime! plugin/sensible.vim')
-vim.cmd('colorscheme default')
+runtime! plugin/sensible.vim
+colorscheme default
+let g:is_bash = 1
+let g:mapleader = ' '
 
-vim.g.is_bash=1
-vim.g.mapleader=' '
-
-(function(set)
-    set.grepprg="git_vimgrep"
-    set.background="dark"
-    set.cursorline=true
-    set.number=true
-    set.clipboard="unnamedplus"
-    set.mouse="a"
-    set.lazyredraw=true
-
-    set.ignorecase=true
-    set.smartcase=true
-
-    set.breakindent=true
-    set.linebreak=true
-    set.wrap=true
-
-    set.list=true
-    -- set.listchars='tab:\ \ ,trail:·'
-
-    set.shiftwidth=2
-    set.softtabstop=2
-    set.tabstop=2
-    set.expandtab=true
-
-    --set dir=/tmp/vim// backupdir=/tmp/vim// undodir=/tmp/vim//
-    -- set autoindent copyindent preserveindent shiftround
-end)(vim.opt)
-EOF
+set grepprg=git_vimgrep
+set background=dark
+set cursorline
+set number
+set clipboard=unnamedplus
+set mouse=a
+set lazyredraw
+set ignorecase smartcase
+set breakindent linebreak wrap
+set list listchars=tab:\ \ ,trail:·
+set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+set dir=/tmp/vim// backupdir=/tmp/vim// undodir=/tmp/vim//
+" set autoindent copyindent preserveindent shiftround
 
 noremap ; :
 nnoremap <Backspace> <C-O>
@@ -103,3 +86,5 @@ nnoremap <Down> :cclose<CR>
 nnoremap <Left> :cp<CR>
 nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
+
+" inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
