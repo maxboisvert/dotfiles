@@ -4,29 +4,23 @@ if !filereadable(stdpath('config') . '/init.vim')
     exe '! ln -s '. expand("~/.init.vim") . ' ' . stdpath('config') . '/init.vim'
 endif
 
+call plug#begin()
+Plug 'fatih/vim-go'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
+Plug 'folke/which-key.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'hrsh7th/cmp-buffer'
+call plug#end()
+
 lua << EOF
-require('packer').startup(function()
-    use 'wbthomason/packer.nvim' -- https://github.com/wbthomason/packer.nvim
-    use 'fatih/vim-go'
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-sensible'
-    use {
-      "folke/which-key.nvim",
-      config = function() require("which-key").setup() end
-    }
-    use {
-      'nvim-telescope/telescope.nvim',
-      requires = { {'nvim-lua/plenary.nvim'} }
-    }
-    use {
-        'hrsh7th/nvim-cmp',
-        requires = { {'hrsh7th/cmp-buffer'} }
-    }
-end)
+require("which-key").setup()
 
 local cmp = require 'cmp'
 cmp.setup {
-    sources = cmp.config.sources {
+    sources = {
         {
             name = 'buffer',
             keyword_length = 3,
@@ -109,5 +103,3 @@ nnoremap <Down> :cclose<CR>
 nnoremap <Left> :cp<CR>
 nnoremap <Right> :cn<CR>
 nnoremap <Up> :copen<CR>
-
-" inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
