@@ -1,34 +1,15 @@
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin()
 Plug 'fatih/vim-go'
-Plug 'tpope/vim-commentary'
+Plug 'terrortylor/nvim-comment'
 Plug 'folke/which-key.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'hrsh7th/cmp-buffer'
 call plug#end()
 
 lua << EOF
 require("which-key").setup()
-
-local cmp = require 'cmp'
-cmp.setup {
-    sources = {
-        {
-            name = 'buffer',
-            keyword_length = 3,
-            option = {
-                get_bufnrs = function()
-                    return vim.api.nvim_list_bufs()
-                end
-            }
-        },
-    },
-    mapping = { ['<CR>'] = cmp.mapping.confirm({select = true}) },
-    completion = { completeopt = 'menu,menuone,noinsert' },
-    experimental = { ghost_text = true }
-}
+require('nvim_comment').setup()
 EOF
 
 augroup vimrc
@@ -49,7 +30,6 @@ colorscheme default
 let g:is_bash = 1
 let g:mapleader = ' '
 
-set grepprg=git_vimgrep
 set background=dark
 set cursorline
 set number
@@ -64,7 +44,6 @@ set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 
 noremap ; :
 nnoremap <Backspace> <C-O>
-nnoremap <Leader>g :GoDef<CR>
 nnoremap <Leader>[ :let @+ = expand("%")<CR>
 nnoremap <silent> <Leader>s :exec ':e ~/scratch/' . strftime("%Y-%U") . '.scratch'<CR>
 
@@ -74,9 +53,4 @@ nnoremap <silent> <Leader>j :Telescope oldfiles<CR>
 nnoremap j gj
 nnoremap k gk
 
-nnoremap <Down> :cclose<CR>
-nnoremap <Left> :cp<CR>
-nnoremap <Right> :cn<CR>
-nnoremap <Up> :copen<CR>
-
-" inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
+inoremap <expr> <Tab> matchstr(getline('.'), '.\%' . col('.') . 'c') =~ '\k' ? "<C-P>" : "<Tab>"
