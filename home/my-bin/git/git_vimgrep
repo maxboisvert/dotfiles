@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if [ -z "$1" ]; then
-    git grep -l -n "$1" -- ":!*assets/*" ":!*javascripts/*" ":!*vendor/*" "*$2*" | awk '{ print $0 ":1:" }'
-else
-    git grep -n "$1" -- ":!*assets/*" ":!*javascripts/*" ":!*vendor/*" "*$2*"
-fi
-
-

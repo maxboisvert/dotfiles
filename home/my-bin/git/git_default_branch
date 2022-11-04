@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+basename `git symbolic-ref refs/remotes/origin/HEAD`

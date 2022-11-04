@@ -4,5 +4,7 @@ set -e
 
 git_status
 
-git fetch origin master
-git checkout origin/master
+master="$(git_default_branch)"
+
+git fetch origin $master
+git checkout origin/$master
