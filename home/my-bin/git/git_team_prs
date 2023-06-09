@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+filename = File.expand_path("~/github_following")
+
+following = File.read(filename)
+
+authors = following.split
+    .map { |f| "author:#{f}" }
+    .join(" ")
+
+puts "org:Shopify is:open is:pr draft:false #{authors}"
