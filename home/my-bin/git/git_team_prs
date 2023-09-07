@@ -4,8 +4,6 @@ filename = File.expand_path("~/github_following")
 
 following = File.read(filename)
 
-authors = following.split
-    .map { |f| "author:#{f}" }
-    .join(" ")
+authors = following.split.join(" ")
 
-puts "org:Shopify is:open is:pr draft:false #{authors}"
+puts "org:Shopify draft:false #{authors}"

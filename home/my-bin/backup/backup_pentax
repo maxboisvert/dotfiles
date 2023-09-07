@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-
-rsync -aP /Volumes/MFB3/DCIM /Volumes/Lexar/pentax

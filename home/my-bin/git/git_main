@@ -4,13 +4,7 @@ set -e
 
 git_status
 
-NAME="$@"
 main="$(git_default_branch)"
-
-BRANCH=`git_safe_name "$NAME"`
 
 git fetch origin $main
 git checkout origin/$main
-git checkout -b $BRANCH
-
-git commit --allow-empty -m "$NAME"
